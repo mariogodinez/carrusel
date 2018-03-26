@@ -1,5 +1,4 @@
 <script>
-	import ModalNotifications from './ModalNotifications.vue'
 	import Spiner from './Spinner.vue'
 
 	export default {
@@ -12,7 +11,6 @@
 			}
 		},
 		components:{
-			ModalNotifications,
 			Spiner
 		},
 		computed:{
@@ -97,7 +95,7 @@
 					</transition-group>
 				</div>
 				<figure class="padding0-10" style="width:130px">
-					<img src="./dist/img/logo-white.png" alt="Orkestra logo" class="width100">
+					<img src="./dist/img/55.png" alt="tenerife logo" class="width100">
 				</figure>
 
 			</section>

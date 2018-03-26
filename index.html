@@ -2,28 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Orkestra</title>
+    <title>Tenerife</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="//daneden.github.io/animate.css/animate.min.css">
-    <link rel="stylesheet" href="//ianlunn.github.io/Hover/css/hover.css">
+    <link rel="stylesheet" href="./dist/ionicons.css">
+    <link rel="stylesheet" href="./dist/ionicons.css">
+    <link rel="stylesheet" href="./dist/styles.css">
+    <link rel="stylesheet" href="./dist/animate.min.css">
+    <link rel="stylesheet" href="./dist/hover.css">
   </head>
   <body>
     <div id="app"></div>
-    <script>
-        var cssId = 'myCss';
-        if (!document.getElementById(cssId))
-        {
-            var head  = document.getElementsByTagName('head')[0];
-            var link  = document.createElement('link');
-            link.id   = cssId;
-            link.rel  = 'stylesheet';
-            link.type = 'text/css';
-            link.href = 'dist/styles.css?timestamp=' + Date.now();
-            link.media = 'all';
-            head.appendChild(link);
-        }
-        document.write("<script type='text/javascript' src='dist/build.js?timestamp=" + Date.now() + "'><\/script>");
+        <script>
+           // var cssId = 'myCss';
+        // if (!document.getElementById(cssId))
+        // {
+        //     var head  = document.getElementsByTagName('head')[0];
+        //     var link  = document.createElement('link');
+        //     link.id   = cssId;
+        //     link.rel  = 'stylesheet';
+        //     link.type = 'text/css';
+        //     link.href = 'dist/styles.css?timestamp=' + Date.now();
+        //     link.media = 'all';
+        //     head.appendChild(link);
+        // }
+        // document.write("<script type='text/javascript' src='dist/build.js?timestamp=" + Date.now() + "'><\/script>");
+ 
+        </script>
+        
+        <script type='text/javascript' src='./dist/build.js'></script>
     </script>
   </body>
 </html>

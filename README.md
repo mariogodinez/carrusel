@@ -1,6 +1,6 @@
 # Promotoria Tenerife
 
-> A Vue.js project
+> A Tenerife project
 
 ## Build Setup
 

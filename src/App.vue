@@ -3,7 +3,7 @@
 <!--     <router-link to="/app">Router App</router-link>
     <router-link to="/login">Login</router-link> -->
 	
-	   <HeaderComponent></HeaderComponent>
+	   <HeaderComponent v-if="false"></HeaderComponent>
 
     <router-view style="padding-top:61px;"></router-view>
   </div>

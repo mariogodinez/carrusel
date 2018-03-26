@@ -7,17 +7,12 @@ Vue.use(Vuex)
 
 const state = {
 	logged: false,
-	user: {},
-	notifications: null,
+	user: {}
 }
 
 const mutations = {
 	SET_LOGGED(state, value){
 		state.logged = value
-	},
-	SET_NOTIFICATIONS(state, value){
-
-		state.notifications = value
 	}
 	 
 }
@@ -28,9 +23,6 @@ const getters = {
 	},
 	logged(state){
 		return state.logged
-	},
-	notifications(state){
-		return state.notifications
 	}
 }
 
@@ -38,9 +30,6 @@ const getters = {
 const actions = {
 	 setLogged({commit}, value){
 	 	commit('SET_LOGGED', value)
-	 },
-	 setNotifications({commit}, value){
-	 	commit('SET_NOTIFICATIONS', value)
 	 }
 }
 
