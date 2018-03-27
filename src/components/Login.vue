@@ -9,7 +9,7 @@
 			return {
 				spiner: false,
 				userInfo: {
-					user: 'pros1',
+					user: 'mario',
 					password: '1234'
 				},
 				errorMessage: 'Las credenciales no coinciden.',
@@ -33,6 +33,8 @@
 
 					this.spiner = true
 					setTimeout(function(){
+
+						
 						axios.post(apiUrl + '/authenticate',  self.userInfo)
 							.then(res => {
 								self.spiner = false
@@ -79,15 +81,13 @@
 </script>
 
 <template class="padding0">
-	<section class="back-black height100vh padding0" style="overflow-y:hidden !important; padding-top: 0px !important;">
+	<section class="back-pattern height100vh padding0" style="overflow-y:hidden !important; padding-top: 0px !important;">
 	<Spiner v-if="spiner"></Spiner>
-
-		
-		<article class="font1-3em flex flex-center relative flex-middle back-pattern height100" style="top:-40px;">
-			<transition appear name="custom-classes-transition" appear-active-class="animated fadeIn" enter-active-class="animated fadeIn" leave-active-class="">
+		<article class="font1-3em flex flex-center relative flex-middle height100vh">
+			<transition appear name="custom-classes-transition" appear-active-class="animated flipInY" enter-active-class="animated flipInY" leave-active-class="">
 				<article class="login">
-					<div class="margin-bottom50">
-						<figure class="center-block" style="width: 160px;">
+					<div class="margin-bottom30">
+						<figure class="center-block" style="width: 120px;">
 							<img class="width100" src="./dist/img/promotoria-tenerife-logo.svg" alt="Logo tenerife">
 						</figure>
 					</div>
@@ -119,6 +119,17 @@
 							Ingresar
 						</button>
 
+					</div>
+
+					<div class="padding10 margin-top20 margin-bottom20">
+						<p class="color-white text-center">¿Aún no estás registrado?</p>
+					</div>
+
+					<div class="flex flex-center ">
+						<button class="my-btn pointer text-uppercase color-yellow font-bold"
+						 style="width:200px; border:2px solid; padding:.6em; background:transparent;">
+							Regístrate
+						</button>
 					</div>
 
 					<!-- <div class="password-actions flex flex-column flex-middle margin20">

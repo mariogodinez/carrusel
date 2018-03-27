@@ -224,6 +224,9 @@
 .color-darkblue
 	color darkblue
 	
+.color-darkblack
+	color darkblack
+	
 .color-lightred
 	color lightred
 .color-whity
@@ -495,7 +498,10 @@
 .back-gray
 	background gray !important
 .back-black
-	background #000000
+	background black
+	
+.back-darkblack
+	background darkblack
 .back-transparent
 	background transparent
 .back-white
@@ -603,18 +609,15 @@
 .my-input
 	width 100%
 	border 0
-	border 2px solid
-	padding .6em
+	border 2px solid lightgray
+	padding .45em
 	font-size 1.3em
 	transition .3s
 	color #8b9ba9
 	border-radius 4px
 	&:focus
-		border 1px solid blue
-		border-left 3px solid blue
-		border-right 3px solid blue
-		box-shadow 0 0 16px #ccc
-		border-radius 8px
+		border 2px solid yellow
+		
 .my-input-search
 	width 260px
 	border 0
@@ -671,6 +674,7 @@
 	border 0
 	outline 0
 	cursor pointer
+	border-radius .2em
 	font-size 1em
 	transition .3s
 	&:active

@@ -7,7 +7,7 @@
   "scripts": {
     "styles": "stylus -w src/styles/app.styl -o dist/styles.css",
     "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/build.js",
-    "serve": "http-server -o -c 1 -a",
+    "serve": "http-server -o -c 1 -a localhost",
     "dev": "npm-run-all --parallel watchify serve & npm run styles",
     "clean": "rimraf ../laravel/public/dist/ && rimraf ../laravel/resources/views/welcome.blade.php",
     "copy": "ncp dist/ ../laravel/public/dist/ && ncp index.html ../laravel/resources/views/welcome.blade.php",

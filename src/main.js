@@ -5,6 +5,9 @@ import Vue from 'vue'
 import store from './store.js'
 import App from './App.vue'
 import Login from './components/Login.vue'
+import Profile from './components/Profile.vue'
+import Register from './components/Register.vue'
+
 
 
 window.axios = require('axios')
@@ -44,6 +47,9 @@ function scrollTop (to,from,next){
 
 let routes = [
   {path: '/login', component: Login, beforeEnter:scrollTop},
+  {path: '/perfil', component: Profile, beforeEnter:scrollTop},
+  {path: '/registro', component: Register, beforeEnter:scrollTop},
+
 
 
 ]
