@@ -44,11 +44,11 @@
 				this.showMenu = !this.showMenu
 			},
 			actionShowNotifications(){
-				this.showNotifications = true
+				this.$router.push('/carrito')
 			},
 			closeSession(){
 				this.hideMenu()
-				this.$router.replace(`/${localStorage.typeOA}/login`)
+				this.$router.replace(`/login`)
 				localStorage.clear()
 				this.$store.dispatch('setLogged', false)
 			},
@@ -109,17 +109,17 @@
 			<ul  class="padding20-0 margin0">
 
 				<li class="flex flex-middle margin0 font20 pointer" style="border-bottom: 1px solid #bfbcbc" @click="hideMenu">
-					<router-link to="/indicadores-semanales" class="padding20 margin-left10 color-white text-uppercase">Perfil</router-link>
+					<router-link to="/perfil" class="padding20 margin-left10 color-white text-uppercase">Perfil</router-link>
 				</li>
 
 				<li class="flex flex-middle margin0 font20 pointer" style="border-bottom: 1px solid #bfbcbc" @click="hideMenu">
-					<router-link to="/crear-cliente" class="padding20 margin-left10 color-white text-uppercase">Carousel de productos</router-link>
+					<router-link to="/carousell" class="padding20 margin-left10 color-white text-uppercase">Carousel de productos</router-link>
 				</li>
-
+<!-- 
 				<li class="flex flex-middle margin0 font20 pointer" style="border-bottom: 1px solid #bfbcbc" @click="hideMenu">
 					<router-link to="/lista-clientes" class="padding20 margin-left10 color-white text-uppercase">Historial de cotizaciones</router-link>
 				</li>
-
+ -->
 
 				<li class="flex flex-middle margin0 font20 pointer" style="border-bottom: 1px solid #bfbcbc" @click="closeSession">
 					<p class="padding20 margin-left10 color-white text-uppercase">Cerrar sesión</p>

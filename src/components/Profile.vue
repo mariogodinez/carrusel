@@ -86,12 +86,12 @@
 		<Spiner v-if="spiner"></Spiner>
 		<article class="back-darkblack flex flex-between flex-middle">
 			<h2 class="color-white padding-left20 font-normal text-uppercase font1-3em">Perfil</h2>
-			<button class="my-btn back-yellow flex flex-middle" v-if="!edit" @click="changeEdit(true)" style="border-radius:0;">
+			<button class="my-btn back-yellow flex flex-middle" v-if="!edit" @click="changeEdit(true)" style="border-radius:0; padding:1em;">
 				<span class="ion-compose font1-3em margin-right5"></span>
 				<span class="font-bold text-uppercase">Editar</span>
 			</button>
 
-			<button class="my-btn back-yellow flex flex-middle opacity0" v-if="edit" style="border-radius:0;">
+			<button class="my-btn back-yellow flex flex-middle opacity0" v-if="edit" style="border-radius:0; padding:1em;">
 				<span class="ion-compose font1-3em margin-right5"></span>
 				<span class="font-bold text-uppercase">Editar</span>
 			</button>
@@ -124,34 +124,34 @@
 					<div class="padding15 flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Nombre:</span></h3>
 						<div>
-							<input type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" name="">
 						</div>
 					</div>
 
 					<div class="padding15 back-lightgray flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Correo electrónico:</span></h3>
 						<div>
-							<input type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" name="">
 						</div>
 					</div>
 
 					<div class="padding15 flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Contraseña:</span></h3>
 						<div>
-							<input type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" name="">
 						</div>
 					</div>
 					<div class="padding15 back-lightgray flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Confirmar Contraseña:</span></h3>
 						<div>
-							<input type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" name="">
 						</div>
 					</div>
 
 					<div class="padding15 flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Celular:</span></h3>
 						<div>
-							<input type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" name="">
 						</div>
 					</div>
 

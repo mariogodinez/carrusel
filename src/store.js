@@ -6,7 +6,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex)
 
 const state = {
-	logged: false,
+	logged: true,
 	user: {}
 }
 

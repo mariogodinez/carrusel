@@ -1,98 +1,87 @@
+<script>
+  
+</script>
+
 <template>
-	<section class="loader-wrap flex flex-middle flex-center">
-		<div class="loader"></div>
-	</section>
+  
+  <section class="loader-wrap flex flex-middle flex-center">
+    <div class="swapping-squares-spinner" :style="spinnerStyle">
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+    </div>
+  </section>
 </template>
 
-<style type="text/css">
-	  .loader-wrap{
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0,0,0,.8);
-  z-index: 100000000000;
-}
-.loader {
-  color: #05cafb;
-  font-size: 90px;
-  text-indent: -9999em;
-  overflow: hidden;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  margin: 72px auto;
-  position: relative;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
-  animation: load6 1.7s infinite ease, round 1.7s infinite ease;
-}
-@-webkit-keyframes load6 {
-  0% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-  5%,
-  95% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-  10%,
-  59% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
-  }
-  20% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
-  }
-  38% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
-  }
-  100% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-}
-@keyframes load6 {
-  0% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-  5%,
-  95% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-  10%,
-  59% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
-  }
-  20% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
-  }
-  38% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
-  }
-  100% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
-  }
-}
-@-webkit-keyframes round {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes round {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
 
+<style type="text/css">
+  .swapping-squares-spinner, .swapping-squares-spinner * {
+      box-sizing: border-box;
+    }
+
+    .swapping-squares-spinner {
+      height: 65px;
+      width: 65px;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swapping-squares-spinner .square {
+      height: calc(65px * 0.25 / 1.3);
+      width:  calc(65px * 0.25 / 1.3);
+      animation-duration: 1000ms;
+      border: calc(65px * 0.04 / 1.3) solid #ff9000;
+      margin-right: auto;
+      margin-left: auto;
+      position: absolute;
+      animation-iteration-count: infinite;
+    }
+
+    .swapping-squares-spinner .square:nth-child(1) {
+      animation-name: swapping-squares-animation-child-1;
+      animation-delay: 500ms;
+    }
+
+    .swapping-squares-spinner .square:nth-child(2) {
+      animation-name: swapping-squares-animation-child-2;
+      animation-delay: 0ms;
+    }
+
+    .swapping-squares-spinner .square:nth-child(3) {
+      animation-name: swapping-squares-animation-child-3;
+      animation-delay: 500ms;
+    }
+
+    .swapping-squares-spinner .square:nth-child(4) {
+      animation-name: swapping-squares-animation-child-4;
+      animation-delay: 0ms;
+    }
+
+    @keyframes swapping-squares-animation-child-1 {
+      50% {
+        transform: translate(150%,150%) scale(2,2);
+      }
+    }
+
+    @keyframes swapping-squares-animation-child-2 {
+      50% {
+        transform: translate(-150%,150%) scale(2,2);
+      }
+    }
+
+    @keyframes swapping-squares-animation-child-3 {
+      50% {
+        transform: translate(-150%,-150%) scale(2,2);
+      }
+    }
+
+    @keyframes swapping-squares-animation-child-4 {
+      50% {
+        transform: translate(150%,-150%) scale(2,2);
+      }
+    }
 </style>

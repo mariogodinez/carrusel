@@ -103,9 +103,12 @@
 	
 .margin-bottom30
 	margin-bottom 30px
+.margin-right40
+	margin-right 40px
 	
 .margin-bottom50
 	margin-bottom 50px
+	
 .center-block
 	margin-left auto
 	margin-right auto
@@ -129,6 +132,8 @@
 	padding 20px 10px
 .padding15-20
 	padding 15px 20px
+.padding15-0
+	padding 15px 0px
 .padding20-5
 	padding 20px 5px
 	
@@ -258,6 +263,9 @@
 	
 .text-uppercase
 	text-transform uppercase
+	
+.text-lowercase
+	text-transform lowercase
 .anchor
 	text-decoration underline
 	cursor pointer
@@ -275,11 +283,9 @@
 
 .box-shadow
 	box-shadow 0 4px 10px #999 !important
-
 .my-select
 	position relative !important
-	border 1px solid #c7d3df
-	
+	border-radius 3px !important
 	select
 		-webkit-appearance none !important
 		-moz-appearance none !important
@@ -287,30 +293,24 @@
 		border 0
 		background transparent
 		width 100%
-		min-height 45px
+		height 40px
 		padding-left .5em
 		position relative
 		z-index 3
 		font-size 1.2em
 		cursor pointer
-		color #8b9ba9
+		color #eee
 		option
-			color #8b9ba9 !important
+			color #333
 			font-size 1.2em
 			padding .8em !important
 	&-icon
 		position absolute
-		right 10px
+		right .4em
 		z-index 2
 		font-size 23px
-		min-height 50px
-		border-left 1px solid #c7d3df
-		top 0px
-		padding-left 11px
-		background white !important
-		color #8b9ba9 !important
-		z-index 122
-
+		top .4em
+		color white
 
 .line-height30
 	line-height 30px
@@ -372,6 +372,15 @@
 	padding-right 1px
 .width100
 	width 100%
+
+
+.width100px
+	width 100px
+	
+.width70px
+	width 70px
+.width50px
+	width 50px
 	
 .my-container
 	width auto
@@ -484,7 +493,7 @@
 	background green
 	
 .back-yellow
-	background yellow
+	background yellow !important
 .back-red
 	background #ca0000
 .back-lightred
@@ -609,12 +618,13 @@
 .my-input
 	width 100%
 	border 0
-	border 2px solid lightgray
-	padding .45em
-	font-size 1.3em
+	border 2px solid
+	padding .5em
+	font-size 1.1em
 	transition .3s
-	color #8b9ba9
+	color #7d7878
 	border-radius 4px
+	background #212224
 	&:focus
 		border 2px solid yellow
 		
@@ -669,7 +679,7 @@
 		
 
 .my-btn
-	padding .8em 1.2em
+	padding .8em 1em
 	outline 0
 	border 0
 	outline 0
@@ -682,7 +692,7 @@
 		transform scale(.95,.95)
 		
 .my-btn-round
-	padding .55em 1.2em !important
+	padding .8em 1em !important
 	outline 0
 	border 3px double !important
 	border-radius 30px 
@@ -803,4 +813,14 @@
 		bottom -8px
 		right 30px
 
+
+.mts2
+	position relative
+	&:after
+		content '2'
+		font-size .8em
+		position absolute
+		top -3px
+		
+	
 

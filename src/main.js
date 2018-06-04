@@ -7,6 +7,13 @@ import App from './App.vue'
 import Login from './components/Login.vue'
 import Profile from './components/Profile.vue'
 import Register from './components/Register.vue'
+import Solicitud from './components/Solicitud.vue'
+import ImgCarousell from './components/ImgCarousel.vue'
+import RecoverPassword from './components/RecoverPassword.vue'
+import ProductDetail from './components/ProductDetail.vue'
+import Cart from './components/Cart.vue'
+
+import Carousel3d from 'vue-carousel-3d';
 
 
 
@@ -35,6 +42,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json'
 
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
+Vue.use(Carousel3d);
 
 function scrollTop (to,from,next){
   let body = document.querySelector('body')
@@ -49,6 +57,12 @@ let routes = [
   {path: '/login', component: Login, beforeEnter:scrollTop},
   {path: '/perfil', component: Profile, beforeEnter:scrollTop},
   {path: '/registro', component: Register, beforeEnter:scrollTop},
+  {path: '/solicitar-cotizacion', component: Solicitud, beforeEnter:scrollTop},
+  {path: '/carousell', component: ImgCarousell, beforeEnter:scrollTop},
+  {path: '/recuperar-contrasena', component: RecoverPassword, beforeEnter:scrollTop},
+  {path: '/detalle-producto', component: ProductDetail, beforeEnter:scrollTop},
+  {path: '/carrito', component: Cart, beforeEnter:scrollTop},
+
 
 
 
@@ -64,11 +78,16 @@ let VueApp = new Vue({ // eslint-disable-line no-new
   el: '#app',
   router,
   store,
+  components:{
+    'carousel-3d': Carousel3d.Carousel3d,
+    'slide': Carousel3d.Slide
+  },
   render: (h) => h(App),
   created(){
 
   }
 })
 
-  Vue.component('pagination', require('laravel-vue-pagination'));
+
+  // Vue.component('pagination', require('laravel-vue-pagination'));
 

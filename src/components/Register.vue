@@ -26,6 +26,9 @@
 			}
 		},
 		methods: {
+			goBack(){
+				this.$router.go(-1)
+			},
 			login(){
 				let self = this
 				
@@ -34,43 +37,9 @@
 					this.spiner = true
 					setTimeout(function(){
 
+						self.$router.push('/login')
 						
-						axios.post(apiUrl + '/authenticate',  self.userInfo)
-							.then(res => {
-								self.spiner = false
-								if(res.status == 200){
-									localStorage.token = res.data.token
-									localStorage.rol = res.data.rol
-
-									
-									// aqui validar rol como manager
-									// if(true){ 
-									// 	self.$router.replace('/indicadores-director')
-									// 	return false
-									// }
-
-									if(res.data.rol == 'Promoter'){
-										self.$router.replace('/indicadores-semanales')
-									}
-
-									if(res.data.rol == 'Guest'){
-										self.$router.replace('/crear-preoportunidad')
-									}
-									window.location.reload()
-
-									axios.get(apiUrl + '/check_session')
-										.then(res =>{
-											console.log(res)
-
-										})
-								}
-							})
-							.catch(err => {
-								console.log(err.response)
-								self.spiner = false
-								self.error = true
-							})
-					},500)
+					},1500)
 				}
 				
 
@@ -83,12 +52,17 @@
 <template class="padding0">
 	<section class="back-pattern height100vh padding0">
 	<Spiner v-if="spiner"></Spiner>
-		<article class="font1-3em flex flex-center relative flex-middle height100vh">
+		<article class="font1-3em flex flex-center relative flex-middle back-pattern">
 			<transition appear name="custom-classes-transition" appear-active-class="animated flipInY" enter-active-class="animated flipInY" leave-active-class="">
-				<article class="relative" style="top:90px;">
+				<article class="relative" style="top:0px;">
 					<div class="margin-bottom30">
-						<figure class="center-block" style="width: 120px;">
-							<img class="width100" src="./dist/img/promotoria-tenerife-logo.svg" alt="Logo tenerife">
+						
+						<figure class="center-block relative" style="width: 140px;">
+
+						<div class="square30 pointer absolute rounded flex flex-center flex-middle color-yellow border2" style="top:40%; left:-100px;" @click="goBack">
+							<span class="rounded ion-arrow-left-c font1-5em "></span>
+						</div>
+							<img class="width100" src="./dist/img/logo-tenerife.png" alt="Logo tenerife">
 						</figure>
 					</div>
 					<div id="login-form" class="flex flex-column flex-middle flex-center">
