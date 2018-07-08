@@ -1,19 +1,28 @@
 <script>
 	import Spiner from './Spinner.vue'
+	import WarnTag from './WarnTag.vue'
+
 
 	export default {
 		components:{
 			Spiner,
+			WarnTag
 		},
 		data(){
 			return {
 				spiner: false,
 				userInfo: {
-					user: 'mario',
+					email: 'chaos@gmail.com',
 					password: '1234'
 				},
 				errorMessage: 'Las credenciales no coinciden.',
-				error: false
+				error: false,
+				noValid:{
+					email: false,
+					pass: false
+
+
+				}
 
 			}
 		},
@@ -41,49 +50,51 @@
 			login(){
 				let self = this
 				
-				if(this.userInfo.user != '' || this.userInfo.password != ''){
+				if(this.userInfo.email == '' ){
+					this.noValid.email = true
+				}
+				if(this.userInfo.password == '' ){
+					this.noValid.pass = true
+				}
 
+				if(!Is.email(this.userInfo.email)){
+					this.noValid.user = true
+				}
+
+				if(this.noValid.email || this.noValid.pass){
+					setTimeout(function(){
+						self.noValid.pass = false
+						self.noValid.email = false
+					}, 3000)
+
+					return false
+				}
+
+
+
+				if(this.userInfo.email != '' || this.userInfo.password != ''){
 					this.spiner = true
 					setTimeout(function(){
-						self.$router.replace('/carousell')
-						self.$store.dispatch('setLogged', true)
-						
-						// axios.post(apiUrl + '/authenticate',  self.userInfo)
-						// 	.then(res => {
-						// 		self.spiner = false
-						// 		if(res.status == 200){
-						// 			localStorage.tokenCS = res.data.tokenCS
-						// 			localStorage.rol = res.data.rol
+						axios.post(apiUrl + '/authenticate_client',  self.userInfo)
+							.then(res => {
+								self.spiner = false
+								if(res.status == 200){
+									axios.defaults.headers.common['Authorization'] = "Bearer " + res.data.token;
+									localStorage.tokenCS = res.data.token
+									localStorage.rol = res.data.rol
+									localStorage.user = JSON.stringify(res.data.user)
 
-									
-						// 			// aqui validar rol como manager
-						// 			// if(true){ 
-						// 			// 	self.$router.replace('/indicadores-director')
-						// 			// 	return false
-						// 			// }
-
-						// 			if(res.data.rol == 'Promoter'){
-						// 				self.$router.replace('/indicadores-semanales')
-						// 			}
-
-						// 			if(res.data.rol == 'Guest'){
-						// 				self.$router.replace('/crear-preoportunidad')
-						// 			}
-						// 			window.location.reload()
-
-						// 			axios.get(apiUrl + '/check_session')
-						// 				.then(res =>{
-						// 					console.log(res)
-
-						// 				})
-						// 		}
-						// 	})
-						// 	.catch(err => {
-						// 		console.log(err.response)
-						// 		self.spiner = false
-						// 		self.error = true
-						// 	})
-					},2500)
+									self.$router.replace('/carrusel')
+									self.$store.dispatch('setLogged', true)
+									self.$store.dispatch('setUser', res.data.user)
+									// window.location.reload()
+								}
+							})
+							.catch(err => {
+								self.spiner = false
+								self.error = true
+							})
+					}, 500)
 				}
 				
 
@@ -112,9 +123,10 @@
 							<span>
 								<span class="ion-person color-darkgray font20 margin10" style="position:absolute; margin: 14px;  left:-5px;"></span>
 							</span>
+							<WarnTag msg="Ingresa un email válido" v-if="noValid.email" class="absolute" style="top:-40px;"></WarnTag>
 							<input type="text"
 							class=" my-input back-white margin-bottom25 color-black"
-							  v-model="userInfo.user" style="width: 300px; padding-left:27px;">
+							  v-model="userInfo.email" placeholder="Email" style="width: 300px; padding-left:27px;">
 						</div>
 						<div class="flex width100 margin-bottom10">
 							<h3 class="color-white font-normal font1em">Contraseña</h3>
@@ -123,9 +135,10 @@
 							<span>
 								<span class="ion-locked color-darkgray font20" style="position:absolute; margin: 14px; left:-5px;"></span>
 							</span>
+							<WarnTag v-if="noValid.pass" class="absolute" style="top:-40px;"></WarnTag>
 							<input type="password"
 							class=" my-input back-white  color-black"
-							 v-model="userInfo.password" style="width: 300px; padding-left:27px;">
+							 v-model="userInfo.password" placeholder="Contraseña" style="width: 300px; padding-left:27px;">
 						</div>
 						<button class="my-btn pointer back-yellow text-uppercase color-black font-bold"
 						 style="width:200px;" @click="login">

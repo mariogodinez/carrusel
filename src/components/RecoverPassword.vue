@@ -1,17 +1,21 @@
 <script>
 	import Spiner from './Spinner.vue'
 	import ModalConfirm from './ModalConfirm.vue'
+	import WarnTag from './WarnTag.vue'
 
 	export default {
 		components:{
 			Spiner,
-			ModalConfirm
+			ModalConfirm,
+			WarnTag
 		},
 		data(){
 			return {
 				spiner: false,
 				errorMessage: 'Las credenciales no coinciden.',
-				error: false
+				error: false,
+				email:'',
+				noValidEmail: false
 
 			}
 		},
@@ -26,6 +30,20 @@
 		methods: {
 			goBack(){
 				this.$router.go(-1)
+			},
+			sendEmail(){
+				let self = this
+				if(!Is.email(this.email)){
+					this.noValidEmail = true
+				}
+
+				if(this.noValidEmail){
+					setTimeout(function(){
+						self.noValidEmail = false
+					}, 3000)
+
+					return false
+				}
 			}
 		}
 	}
@@ -34,7 +52,7 @@
 <template class="padding0">
 	<section class="back-pattern height100vh padding0">
 	<Spiner v-if="spin"></Spiner>
-	<ModalConfirm v-if="true"></ModalConfirm>
+	<ModalConfirm v-if="false"></ModalConfirm>
 
 		<article class="font1-3em flex flex-center relative flex-middle back-pattern">
 			<transition appear name="custom-classes-transition" appear-active-class="animated flipInY" enter-active-class="animated flipInY" leave-active-class="">
@@ -67,14 +85,15 @@
 							<span>
 								<span class="fa fa-user color-darkgray font20 margin10" style="position:absolute; margin: 14px"></span>
 							</span>
+							<WarnTag msg="Ingresa un email válido" v-if="noValidEmail" class="absolute" style="top:-40px;"></WarnTag>
 							<input type="text"
 							class="padding-left35 my-input back-white margin-bottom25 color-black"
-							  style="width: 400px;">
+							  style="width: 400px;" v-model="email">
 						</div>
 						
 
 						<button class="my-btn pointer back-yellow text-uppercase color-black font-bold"
-						 style="width:200px;" >
+						 style="width:200px;" @click="sendEmail">
 							Enviar
 						</button>
 

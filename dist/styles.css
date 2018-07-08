@@ -293,7 +293,7 @@ h6 {
   padding-bottom: 20px;
 }
 .color-white {
-  color: #fff;
+  color: #fff !important;
 }
 .color-transparent {
   color: transparent !important;
@@ -332,7 +332,7 @@ h6 {
   color: #2980b9;
 }
 .color-yellow {
-  color: #ff9000;
+  color: #ff9000 !important;
 }
 .color-green {
   color: #20a286;
@@ -400,16 +400,16 @@ h6 {
   color: #eee;
 }
 .my-select select option {
-  color: #333;
+  color: #f00;
   font-size: 1.2em;
   padding: 0.8em !important;
 }
 .my-select-icon {
   position: absolute;
-  right: 0.4em;
+  right: 0.3em;
   z-index: 2;
-  font-size: 23px;
-  top: 0.4em;
+  font-size: 20px;
+  top: 0.55em;
   color: #fff;
 }
 .line-height30 {

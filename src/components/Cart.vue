@@ -1,20 +1,39 @@
 <script>
 	import Spiner from './Spinner.vue'
 	import CartItem from './CartItem.vue'
+	import ModalSure from './ModalSure.vue'
+	import ModalConfirm from './ModalConfirm.vue'
+	import ModalConfirmDelete from './ModalConfirmDelete.vue'
+	import ModalSuccess from './ModalSuccess.vue'
+	import ModalError from './ModalError.vue'
+
+
+
+
 
 	export default {
 		components:{
 			Spiner,
-			CartItem
+			CartItem,
+			ModalSure,
+			ModalConfirm,
+			ModalConfirmDelete,
+			ModalSuccess,
+			ModalError
+
 		},
 		data(){
 			return {
-
-				spiner: false,
+				confirmDelete: false,
+				deleteItemId: null,
+				confirmSend: false,
+				spin: true,
 				edit: false,
-				errorMessage: 'Las credenciales no coinciden.',
-				error: false
-
+				sent: false,
+				errorMessage: '',
+				error: false,
+				msg: '',
+				success: false,
 			}
 		},
 		computed:{
@@ -23,71 +42,146 @@
 			},
 			url(){
 				return window.url
-			}
+			},
+			cartItems(){
+				return this.$store.getters.cartItems
+			},
+			userInfo(){
+		      return this.$store.getters.userInfo
+		    }
 		},
 		methods: {
+			goBack(){
+				this.$router.go(-1)
+			},
 			changeEdit(value){
 				this.edit = value
 			},
-			login(){
-				let self = this
-				
-				if(this.userInfo.user != '' || this.userInfo.password != ''){
-
-					this.spiner = true
-					setTimeout(function(){
-
-						
-						axios.post(apiUrl + '/authenticate',  self.userInfo)
-							.then(res => {
-								self.spiner = false
-								if(res.status == 200){
-									localStorage.token = res.data.token
-									localStorage.rol = res.data.rol
-
-									
-									// aqui validar rol como manager
-									// if(true){ 
-									// 	self.$router.replace('/indicadores-director')
-									// 	return false
-									// }
-
-									if(res.data.rol == 'Promoter'){
-										self.$router.replace('/indicadores-semanales')
-									}
-
-									if(res.data.rol == 'Guest'){
-										self.$router.replace('/crear-preoportunidad')
-									}
-									window.location.reload()
-
-									axios.get(apiUrl + '/check_session')
-										.then(res =>{
-											console.log(res)
-
-										})
-								}
-							})
-							.catch(err => {
-								console.log(err.response)
-								self.spiner = false
-								self.error = true
-							})
-					},500)
-				}
-				
-
-
+			sendCotization(){
+				this.confirmSend = true
 			}
+		},
+		mounted(){
+			let self = this
+			this.$on('closeModal', function(obj){
+				self.confirmSend = false
+				self.confirmDelete = false
+
+			})
+
+			this.$on('deleteItem', function(obj){
+				self.deleteItemId = obj.id
+				self.confirmDelete = true
+			})
+
+			this.$on('confirmedDelete', function(obj){
+				self.confirmDelete = false
+
+				
+
+				setTimeout(function(){
+					self.spin = true
+					axios.post(apiUrl + '/api/delete_item_cart', {item_id : self.deleteItemId})
+						.then(res =>{
+							console.log(res)
+							self.spin = false
+							if(res.status == 200){
+								self.success = true
+								setTimeout(function(){
+									self.success = false
+								},2100)
+
+								self.$store.dispatch('addNotifications', self.$store.getters.notifications - 1)
+
+								setTimeout(function(){
+									self.$store.dispatch('removeToCart', self.deleteItemId)
+								},2900)
+								
+							}
+
+							if(res.status != 200){
+								self.error = true
+								setTimeout(function(){
+									self.error = false
+								},3000)
+							}
+
+							
+						})
+						.catch(err =>{
+							console.log(err.response)
+							self.spin = false
+
+							self.error = true
+							setTimeout(function(){
+								self.error = false
+							},3000)
+						})
+				}, 300)
+
+				
+			})
+
+
+
+
+			this.$on('sendCotization', function(obj){
+				// Hacer peticion aqui para mandar cotizacion
+
+				self.confirmSend = false
+				self.spin = true
+				axios.post(apiUrl + '/api/send_quotation', { user_id: self.userInfo.id, message: self.msg})
+				.then(res =>{
+					console.log(res)
+					self.spin = false
+					self.success = true
+					self.$store.dispatch('addNotifications', 0)
+					setTimeout(function(){
+						self.success = false
+					}, 3000)
+				})
+				.catch(err =>{
+					console.log(err.response)
+					self.spin = false
+					self.error = true
+
+					setTimeout(function(){
+						self.error = false
+					}, 3000)
+
+				})
+			})
+		},
+		created(){
+			let self = this
+		    axios.post(apiUrl + '/api/shopping_cart', {user_id: self.userInfo.id})
+		      .then(res =>{
+		      	self.spin = false
+		        this.$store.dispatch('addToCart', res.data.shopping_cart)
+		      })
+		      .catch(err =>{
+		      	self.spin = false
+		        console.log(err.response)
+		      })
 		}
 	}
 </script>
 
 <template class="padding0">
 	<section class="padding0 back-white">
-		<Spiner v-if="spiner"></Spiner>
+		<Spiner v-if="spin"></Spiner>
+		<ModalSure v-if="confirmSend"></ModalSure>
+		<ModalConfirmDelete v-if="confirmDelete"></ModalConfirmDelete>
+
+		<ModalConfirm v-if="sent"></ModalConfirm>
+		<ModalSuccess v-if="success" msg="Se ha enviado la cotización correctamente."></ModalSuccess>
+		<ModalError v-if="error"></ModalError>
+
+
+
+
 		<article class="back-darkblack flex padding15 flex-middle">
-			<div class="square30 rounded back-yellow flex flex-middle flex-center">
+			<div class="square30 pointer rounded back-yellow flex flex-middle flex-center" @click="goBack">
 				<span class="ion-arrow-left-b color-black font1-5em relative" style="left:-1px;"></span>
 			</div>
 			<h2 class="color-white padding-left10 font-normal text-uppercase font1-3em">Carrito</h2>
@@ -96,61 +190,62 @@
 
 		<article class="flex flex-right padding20">
 			<div class="flex flex-middle">
-				<textarea class="my-input" rows="4"></textarea>
-				<button class="my-btn pointer back-yellow text-uppercase color-black font-bold" style="width:220px; background:#fff;">
+				<textarea placeholder="Añadir mensaje ..." class="my-input margin-right20" rows="2" style="background:#fff;" v-model="msg"></textarea>
+				<button class="my-btn pointer back-yellow text-uppercase color-black font-bold" style="width:380px; background:#fff;" @click="sendCotization">
 					Solicitar Cotización
 				</button>
 			</div>
 		</article>
 
 
-		<article class="padding20">
+
+		<article class="padding5">
 			<section>
 		    	<article class="flex">
-			    	<div class="width100 flex flex-middle padding20" style="">
+			    	<div class=" padding20-10 back-red" style="width:100%;min-width:230px;">
 			    		<p class="color-gray font1em font-bold text-uppercase" style="font-size:1em;">Nombre</p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
+			    	<!-- <div class="flex flex-middle flex-center padding20" style="  padding:0 15px;">
 			    		<p class="color-gray font-bold text-center text-uppercase" style="width:70px;">CD</p>
-			    	</div>
+			    	</div> -->
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
+			    	<div class="flex flex-middle back-yellow flex-center back-red padding20" style="  padding:0 10px; width:100%; max-width:90px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;">Bloque</p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
+			    	<div class="flex flex-middle flex-center back-green padding20" style="  padding:0 10px; width:90px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;">Cant. Disp.</p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
+			    	<div class="flex flex-middle back-yellow flex-center  padding20" style="  padding:0 10px;width:100%;max-width:90px;">
 			    		<p class="color-gray text-uppercase font1em font-bold text-center" style="width:70px;">total <span class="mts2">m</span></p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;">Medidas</p>
+			    	<div class="flex flex-middle flex-center  padding20" style="  padding:0 10px;width:100%;max-width:120px;">
+			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="">Medidas</p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;">Cant.  </p>
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;width:100%; max-width:100px;">
+			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="">Cant.  </p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;"><span class="mts2">m</span></p>
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;width:100%;max-width:90px;">
+			    		<p class="color-gray font1em font-bold text-center text-uppercase" style=""><span class="mts2">m</span></p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;"></p>
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px; width:100%; max-width:30px;">
+			    		<p class="color-gray font1em font-bold text-center text-uppercase" style=""></p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;"></p>
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;width:100%;max-width:30px;">
+			    		<p class="color-gray font1em font-bold text-center text-uppercase" style=""></p>
 			    	</div>
 			    </article>
 		    </section>
 
-		    <section v-for="i in 3">
-		    	<CartItem></CartItem>
+		    <section v-for="i in cartItems">
+		    	<CartItem :itemCart="i"></CartItem>
 		    </section>
 
 

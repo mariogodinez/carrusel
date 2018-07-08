@@ -11,7 +11,8 @@
 				spiner: false,
 				edit: false,
 				errorMessage: 'Las credenciales no coinciden.',
-				error: false
+				error: false,
+				user: null
 
 			}
 		},
@@ -26,57 +27,10 @@
 		methods: {
 			changeEdit(value){
 				this.edit = value
-			},
-			login(){
-				let self = this
-				
-				if(this.userInfo.user != '' || this.userInfo.password != ''){
-
-					this.spiner = true
-					setTimeout(function(){
-
-						
-						axios.post(apiUrl + '/authenticate',  self.userInfo)
-							.then(res => {
-								self.spiner = false
-								if(res.status == 200){
-									localStorage.token = res.data.token
-									localStorage.rol = res.data.rol
-
-									
-									// aqui validar rol como manager
-									// if(true){ 
-									// 	self.$router.replace('/indicadores-director')
-									// 	return false
-									// }
-
-									if(res.data.rol == 'Promoter'){
-										self.$router.replace('/indicadores-semanales')
-									}
-
-									if(res.data.rol == 'Guest'){
-										self.$router.replace('/crear-preoportunidad')
-									}
-									window.location.reload()
-
-									axios.get(apiUrl + '/check_session')
-										.then(res =>{
-											console.log(res)
-
-										})
-								}
-							})
-							.catch(err => {
-								console.log(err.response)
-								self.spiner = false
-								self.error = true
-							})
-					},500)
-				}
-				
-
-
 			}
+		},
+		created(){
+			this.user = this.$store.getters.userInfo
 		}
 	}
 </script>
@@ -102,11 +56,11 @@
 			<transition name="custom-classes-transition" enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
 				<article v-if="!edit" style="top:0;" class="absolute width100">
 					<div class="padding15">
-						<h3 class="font1 font-normal margin-left20"> <span class="font1em">Nombre:</span> <span class="font1-3em">Juan Manuel Perez</span></h3>
+						<h3 class="font1 font-normal margin-left20"> <span class="font1em">Nombre:</span> <span class="font1-3em">{{user.name}}</span></h3>
 					</div>
 
 					<div class="padding15 back-lightgray">
-						<h3 class="font1 font-normal margin-left20"> <span class="font1em">Correo electrónico:</span> <span class="font1-3em">JuanManuelPerez@email.com</span></h3>
+						<h3 class="font1 font-normal margin-left20"> <span class="font1em">Correo electrónico:</span> <span class="font1-3em">{{user.email}}</span></h3>
 					</div>
 
 					<div class="padding15">
@@ -114,7 +68,7 @@
 					</div>
 
 					<div class="padding15 back-lightgray">
-						<h3 class="font1 font-normal margin-left20"> <span class="font1em">Celular:</span> <span class="font1-3em anchor">234536562</span></h3>
+						<h3 class="font1 font-normal margin-left20"> <span class="font1em">Celular:</span> <span class="font1-3em anchor">{{user.phone}}</span></h3>
 					</div>
 				</article>
 			</transition>
@@ -124,34 +78,34 @@
 					<div class="padding15 flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Nombre:</span></h3>
 						<div>
-							<input style="background:#fff;" type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" v-model="user.name">
 						</div>
 					</div>
 
 					<div class="padding15 back-lightgray flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Correo electrónico:</span></h3>
 						<div>
-							<input style="background:#fff;" type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" v-model="user.email">
 						</div>
 					</div>
 
 					<div class="padding15 flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Contraseña:</span></h3>
 						<div>
-							<input style="background:#fff;" type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" name="" v-model="password">
 						</div>
 					</div>
 					<div class="padding15 back-lightgray flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Confirmar Contraseña:</span></h3>
 						<div>
-							<input style="background:#fff;" type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" v-model="repeatPassword">
 						</div>
 					</div>
 
 					<div class="padding15 flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Celular:</span></h3>
 						<div>
-							<input style="background:#fff;" type="text" class="my-input" name="">
+							<input style="background:#fff;" type="text" class="my-input" v-model="user.phone">
 						</div>
 					</div>
 

@@ -1,19 +1,25 @@
 <script>
 	import Spiner from './Spinner.vue'
+	import ModalSuccess from './ModalSuccess.vue'
 
 	export default {
 		components:{
 			Spiner,
+			ModalSuccess
 		},
 		data(){
 			return {
-				spiner: false,
 				userInfo: {
-					user: 'mario',
-					password: '1234'
+					'email': '',
+				    'phone': '',
+				    'name': '',
+				    'password': ''
 				},
+				password_confirmation:'',
 				errorMessage: 'Las credenciales no coinciden.',
-				error: false
+				error: false,
+				success:false,
+				spin: false
 
 			}
 		},
@@ -29,20 +35,28 @@
 			goBack(){
 				this.$router.go(-1)
 			},
-			login(){
+			register(){
 				let self = this
-				
-				if(this.userInfo.user != '' || this.userInfo.password != ''){
-
-					this.spiner = true
-					setTimeout(function(){
-
-						self.$router.push('/login')
+				this.spin = true
+				axios.post(apiUrl + '/register', self.userInfo)
+					.then(res =>{
+						console.log(res)
+						self.spin = false
+						if(res.data.code == 201){
+							self.success = true
+							setTimeout(function(){
+								self.success = false
+								setTimeout(function(){
+									self.$router.replace('/login')
+								},1000)
+							},4000)
+						}
 						
-					},1500)
-				}
-				
-
+					})	
+					.catch(err =>{
+						console.log(err.response)
+						self.spin = false
+					})			
 
 			}
 		}
@@ -51,7 +65,9 @@
 
 <template class="padding0">
 	<section class="back-pattern height100vh padding0">
-	<Spiner v-if="spiner"></Spiner>
+	<Spiner v-if="spin"></Spiner>
+	<ModalSuccess v-if="success"></ModalSuccess>
+
 		<article class="font1-3em flex flex-center relative flex-middle back-pattern">
 			<transition appear name="custom-classes-transition" appear-active-class="animated flipInY" enter-active-class="animated flipInY" leave-active-class="">
 				<article class="relative" style="top:0px;">
@@ -75,7 +91,7 @@
 							</span>
 							<input type="text"
 							class="padding-left35 my-input back-white margin-bottom25 color-black"
-							  v-model="userInfo.user" style="width: 300px;">
+							  v-model="userInfo.name" style="width: 300px;">
 						</div>
 						<div class="flex width100 margin-bottom10">
 							<h3 class="color-white font-normal">Celular</h3>
@@ -86,7 +102,7 @@
 							</span>
 							<input type="text"
 							class="padding-left35 my-input back-white  color-black"
-							 v-model="userInfo.password" style="width: 300px">
+							 v-model="userInfo.phone" style="width: 300px">
 						</div>
 
 						<div class="flex width100 margin-bottom10">
@@ -98,7 +114,7 @@
 							</span>
 							<input type="text"
 							class="padding-left35 my-input back-white  color-black"
-							 v-model="userInfo.password" style="width: 300px">
+							 v-model="userInfo.email" style="width: 300px">
 						</div>
 
 
@@ -123,12 +139,12 @@
 							</span>
 							<input type="password"
 							class="padding-left35 my-input back-white  color-black"
-							 v-model="userInfo.password" style="width: 300px">
+							 v-model="password_confirmation" style="width: 300px">
 						</div>
 
 
 						<button class="my-btn pointer back-yellow text-uppercase color-black font-bold"
-						 style="width:200px; padding:1em;" @click="login">
+						 style="width:200px; padding:1em;" @click="register">
 							Registrarme
 						</button>
 

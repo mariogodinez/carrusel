@@ -7,7 +7,8 @@
 				showMenu: false,
 				showNotifications: false,
 				search: false,
-				results: []
+				results: [],
+				adding: 0
 			}
 		},
 		components:{
@@ -43,7 +44,9 @@
 			toggleShowMenu(){
 				this.showMenu = !this.showMenu
 			},
-			actionShowNotifications(){
+			actionCart(){
+				// Hacer una validacion aqui para darle el camino correcto
+
 				this.$router.push('/carrito')
 			},
 			closeSession(){
@@ -58,6 +61,7 @@
 		},
 		created(){
 			this.showMenu = false
+
 		}
 	}
 </script>
@@ -83,7 +87,7 @@
 						</p>
 					</transition-group>
 				</div>
-				<figure class="padding0-10" style="width:130px">
+				<figure class="padding0-10" style="width:170px; margin-left:10px">
 					<img src="./dist/img/tenerife-horizontal.png" alt="tenerife logo" class="width100">
 				</figure>
 
@@ -94,12 +98,24 @@
 				<!-- <div class="flex hide-desktop flex-center flex-middle pointer padding15-20 margin-right20" style="border-right:2px solid #203142; border-left:2px solid #203142" @click="toggleShowSearch">
 					<span class="ion-ios-search-strong font2em  color-gray"></span>
 				</div> -->
-				<div @click="actionShowNotifications" class="my-header-notification flex flex-center flex-middle relative " style="border-left:1px solid gray; padding:10px 10px 10px 18px;">
+				<div @click="actionCart" v-if="$route.path != '/carrito'" class="my-header-notification flex flex-center flex-middle relative " style="border-left:1px solid gray; padding:10px 10px 10px 18px;">
 					<span class="ion-android-cart font35 hvr-buzz color-white"></span>
 					<span class="my-badge back-yellow flex flex-middle flex-center color-white" style="position: absolute; top:5px; right:-5px;">
-						<h4 class="color-black font-normal">{{notifications || 3}}</h4>
+						<h4 class="color-black font-normal">
+							<!-- <animate-number
+						      from="0" 
+						      :to="$store.getters.notifications" 
+						      duration="1500" 
+						      easing="easeOutQuad"
+						      :formatter="formatter"
+						    ></animate-number> -->
+
+						    {{notifications}}
+				    	</h4>
 					</span>
 				</div>
+
+				
 			</section>
 
 
@@ -109,11 +125,11 @@
 			<ul  class="padding20-0 margin0">
 
 				<li class="flex flex-middle margin0 font20 pointer" style="border-bottom: 1px solid #bfbcbc" @click="hideMenu">
-					<router-link to="/perfil" class="padding20 margin-left10 color-white text-uppercase">Perfil</router-link>
+					<router-link to="/perfil" class="padding20 width100 margin-left10 color-white text-uppercase">Perfil</router-link>
 				</li>
 
 				<li class="flex flex-middle margin0 font20 pointer" style="border-bottom: 1px solid #bfbcbc" @click="hideMenu">
-					<router-link to="/carousell" class="padding20 margin-left10 color-white text-uppercase">Carousel de productos</router-link>
+					<router-link to="/carrusel" class="padding20 width100 margin-left10 color-white text-uppercase">Carousel de productos</router-link>
 				</li>
 <!-- 
 				<li class="flex flex-middle margin0 font20 pointer" style="border-bottom: 1px solid #bfbcbc" @click="hideMenu">
@@ -122,7 +138,7 @@
  -->
 
 				<li class="flex flex-middle margin0 font20 pointer" style="border-bottom: 1px solid #bfbcbc" @click="closeSession">
-					<p class="padding20 margin-left10 color-white text-uppercase">Cerrar sesión</p>
+					<p class="padding20 margin-left10 width100 color-white text-uppercase">Cerrar sesión</p>
 				</li>
 			</ul>
 			<br>

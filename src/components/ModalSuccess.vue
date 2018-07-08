@@ -10,6 +10,7 @@
     watch:{
      
     },
+    props:['url','msg'],
     components:{
     },
     methods:{
@@ -20,7 +21,7 @@
     }
 	}
 </script>
-<style>
+<style scoped>
   .modal-mask {
   position: fixed;
   z-index: 999543657658;
@@ -28,7 +29,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .8);
+  background-color: rgba(0,0,0, .9);
   display: table;
   transition: opacity .3s ease;
 }
@@ -39,15 +40,14 @@
 }
 
 .modal-container {
-  max-width: 460px;
-  min-height: 200px;
+  max-width: 600px;
   margin: 0px auto;
   max-height:80vh;
-  overflow:auto;
   padding:10px;
+  overflow:inherit;
   position: relative;
   top:1vh;
-  background: white;
+  background-color: white;
   border-radius: 5px;
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
@@ -94,19 +94,24 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-container flex flex-center flex-middle">
-          <article class="modal-body margin-bottom0 relative ">
-
-            <section class="back-white padding10">
-                <div class="margin-bottom20">
-                  <p class="ion-checkmark color-green text-center" style="font-size:4em;"></p>
+        <div class="modal-container">
+          <article class="modal-body margin-bottom0 relative" style="padding-top:10px;">
+            <div class="modal-header flex flex-center flex-column margin-bottom20">
+                <div class="padding20"></div>
+                <div class="flex flex-center flex-middle text-center margin-bottom20">
+                    <img src="./dist/img/tick-inside-circle.svg" style="width:80px;">
                 </div>
-                    
-                <h2 class="color-black text-uppercase text-center">Solucitud Enviada</h2>
-             
-            </section>
+                <div class="flex flex-center flex-middle text-center">
+                  <h2 class="font-normal text-center font1-5em text-uppercase font-bold" style="color:#333;">¡Listo!</h2>
+                </div>
+              </div>
 
+              <article class="modal-body margin-bottom0 text-center padding10-20">
+                <p class="font1-5em" style="color:#333; line-height:1.2em;">{{ msg || 'Se ha cargado el contenido satisfactoriamente'}}</p>
+              </article>
+              <div class="padding20"></div>
           </article>
+          
         </div>
       </div>
     </div>

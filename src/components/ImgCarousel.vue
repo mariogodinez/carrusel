@@ -1,15 +1,49 @@
 <script>
   import Filters from './Filters.vue'
   import ModalFilters from './ModalFilters.vue'
+  import Spinner from './Spinner.vue'
+
 
   export default {
     name: 'carrousel',
     data() {
       return {
+        spin: false,
+        money:'',
         swiperOption: {
         },
         showfilters: false,
         slides: [
+          {
+            name: 'Marmol Crema Marfil Blanco',
+            count: 796,
+            id: 0,
+            imgUrl: './dist/img/img-1.jpg'
+          },
+          {
+            name: 'Carrara Black',
+            count: 428,
+            id: 1,
+            imgUrl: './dist/img/img-2.jpg'
+          },
+          {
+            name: 'Grayshell Luxury',
+            count: 19,
+            id: 2,
+            imgUrl: './dist/img/img-3.jpg'
+          },
+          {
+            name: 'Onix Velluto',
+            count: 174,
+            id: 3,
+            imgUrl: './dist/img/img-4.jpg'
+          },
+          {
+            name: 'Travertino Arabe',
+            count: 85,
+            id: 4,
+            imgUrl: './dist/img/img-5.jpg'
+          },
           {
             name: 'Marmol Crema Marfil Blanco',
             count: 796,
@@ -46,23 +80,57 @@
     components:{
       Filters,
       ModalFilters,
+      Spinner
     },
     computed: {
-      
+      apiUrl(){
+        return window.apiUrl
+      }
+    },
+    watch:{
+      money(val){
+        if(val.length > 3){
+          // val.split()
+        }
+      }
     },
     methods:{
       hideFilter(){
         this.$parent.$emit('showFilter')
       },
       onLastSlide(){
-console.log('hola last')
+      console.log('hola last')
       },
       onAfterSlideChange(){
       console.log('hola after')
       },
       onBeforeSlideChange(){
         console.log('hola before')
+      },
+      goBlocks(slide){
+        localStorage.lastBlockSelected = slide.type
+        this.$router.push({name: 'product-select-detail'})
       }
+    },
+    created(){
+      let self = this
+      this.spin = true
+      axios.post(apiUrl + '/api/main_page')
+        .then(res =>{
+          console.log(res)
+          
+          self.slides = res.data
+          setTimeout(function(){
+            self.spin = false
+          }, 2000)
+        })
+        .catch(err =>{
+          console.log(err.response)
+          setTimeout(function(){
+            self.spin = false
+          }, 500)
+
+        })
     },
     mounted() {
      let self = this
@@ -70,6 +138,13 @@ console.log('hola last')
         self.showfilters = false
         if(data.status){
 
+        }
+      })
+
+      this.$on('filtered', function(data){
+        self.showfilters = false
+        if(data.status){
+          self.slides = data.datos
         }
       })
 
@@ -103,6 +178,9 @@ console.log('hola last')
 
 .carousel-3d-slide{
   overflow:inherit !important;
+  border:0;
+  box-shadow:0 0 20px #000;
+
 }
 
 .carousel-3d-container{
@@ -132,23 +210,24 @@ console.log('hola last')
    <article class=" back-white padding20">
      
    </article>
-  
 
-    <section class="padding20 back-white">
+    <Spinner v-if="spin"></Spinner>
+
+    <section class="padding20 back-white relative" style="top:40px;">
           <carousel-3d :controls-visible="true" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
                        :controls-width="30" :controls-height="60" :clickable="true">
-            <slide v-for="(slide, i) in slides" :index="i">
-              <figure class="width100 height100">
-                <img :src="slide.imgUrl" class="width100 height100">
+            <slide v-for="(slide, i) in slides" :index="i" >
+              <figure class="width100 height100 poiter" @click="goBlocks(slide)">
+                <img :src="apiUrl + '/' + slide.image_url" class="width100 height100">
               </figure>
               
               
               <figcaption class="relative">
                 <div class="flex flex-middle flex-center">
                   <span class="font1-5em">
-                    {{slide.name}} 
+                    {{slide.type}} 
                   </span>
-                  <span class="square50 font1-3em margin-left10 flex flex-middle flex-center rounded" style="border:2px solid black;">{{slide.count}}</span>
+                  <span class="square50 font1-3em margin-left10 flex flex-middle flex-center rounded" style="border:2px solid black;">{{slide.eagil_quantity}}</span>
                 </div>
                   
               </figcaption>

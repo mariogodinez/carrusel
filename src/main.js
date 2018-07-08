@@ -11,26 +11,31 @@ import Solicitud from './components/Solicitud.vue'
 import ImgCarousell from './components/ImgCarousel.vue'
 import RecoverPassword from './components/RecoverPassword.vue'
 import ProductDetail from './components/ProductDetail.vue'
+import SelectProductDetail from './components/SelectProductDetail.vue'
+
 import Cart from './components/Cart.vue'
 
 import Carousel3d from 'vue-carousel-3d';
+import VueAnimateNumber from 'vue-animate-number'
 
 
 
 window.axios = require('axios')
 window.Is = require('is_js')
+// window.token ;
 
 // window.onbeforeunload = function(){
 //   localStorage.removeItem('tokenOrkestra')
 // }
 
+
 let prodApi = '---'
-let domain = '---'
-let devApi = null
+let demoApi = 'http://178.128.15.135'
+let devApi = 'https://270582c0.ngrok.io'
 
-window.apiUrl =  devApi
+window.apiUrl =  demoApi
 
-axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.tokenCT;
+axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.tokenCS;
 // axios.defaults.timeout                         = 8000;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['Content-Type'] = 'application/json'
@@ -43,6 +48,8 @@ axios.defaults.headers.common['Content-Type'] = 'application/json'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 Vue.use(Carousel3d);
+Vue.use(VueAnimateNumber)
+
 
 function scrollTop (to,from,next){
   let body = document.querySelector('body')
@@ -58,9 +65,10 @@ let routes = [
   {path: '/perfil', component: Profile, beforeEnter:scrollTop},
   {path: '/registro', component: Register, beforeEnter:scrollTop},
   {path: '/solicitar-cotizacion', component: Solicitud, beforeEnter:scrollTop},
-  {path: '/carousell', component: ImgCarousell, beforeEnter:scrollTop},
+  {path: '/carrusel', component: ImgCarousell, beforeEnter:scrollTop},
   {path: '/recuperar-contrasena', component: RecoverPassword, beforeEnter:scrollTop},
-  {path: '/detalle-producto', component: ProductDetail, beforeEnter:scrollTop},
+  {path: '/detalle-producto', name: 'product-detail', component: ProductDetail, beforeEnter:scrollTop},
+  {path: '/seleccionar-producto', name: 'product-select-detail', component: SelectProductDetail, beforeEnter:scrollTop},
   {path: '/carrito', component: Cart, beforeEnter:scrollTop},
 
 
@@ -82,9 +90,27 @@ let VueApp = new Vue({ // eslint-disable-line no-new
     'carousel-3d': Carousel3d.Carousel3d,
     'slide': Carousel3d.Slide
   },
+  computed:{
+    userInfo(){
+      return this.$store.getters.userInfo
+    }
+  },
   render: (h) => h(App),
   created(){
+    let self = this
+    // this.$store.dispatch('addNotifications', self.$store.getters.cart.length)
 
+    axios.post(apiUrl + '/api/shopping_cart', {user_id: self.userInfo.id})
+      .then(res =>{
+        this.$store.dispatch('addToCart', res.data.shopping_cart)
+
+        this.$store.dispatch('addNotifications', res.data.shopping_cart.length)
+      })
+      .catch(err =>{
+        console.log(err.response)
+      })
+
+      
   }
 })
 

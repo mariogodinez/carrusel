@@ -1,73 +1,101 @@
 <script type="text/javascript">
+	import Spinner from './Spinner.vue'
 	export default{
 		data(){
 			return {
 				cant: 0
 			}
 		},
+		components:{
+			Spinner
+		},
+		props:['itemCart'],
 		methods:{
-			
-			addCant(){
-				this.cant ++
+			deleteItem(id){
+				this.$parent.$emit('deleteItem', { id })
 			},
-			restCant(){
-				if(this.cant == 0) {
-					return false
-				}
-				this.cant --
+			addCant(id){
+				// this.itemCart.quantity ++
+				this.$store.dispatch('addCount', id)
+			},
+			restCant(id){
+				// if(this.itemCart.quantity == 0) {
+				// 	return false
+				// }
+				this.$store.dispatch('restCount', id)
+				// this.itemCart.quantity --
+			}
+		},
+		computed:{
+			itemCartM2(){
+				let compose = this.itemCart.measurements.split('x')
+				return parseInt(compose[0]) * parseInt(compose[1]) * this.itemCart.quantity
 			}
 		}
 	}
 </script>
 
+<style type="text/css">
+	/*.add *{
+		flex-shrink:1;
+	}*/
+</style>
+
 <template>
 	<div>
-		<article class="flex">
-	    	<div class="width100 flex flex-middle padding20" style="">
-	    		<p class="color-black font1em font-bold text-uppercase" style="font-size:1em;">Grayshell</p>
+		<!-- <Spinner></Spinner> -->
+		<article class="flex add">
+	    	<div class=" padding20-10 back-yellow" style="width:100%;min-width:230px;">
+	    		<p class="color-black font1em font-bold text-uppercase" style="font-size:1em;">{{itemCart.name}}</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-	    		<p class="color-black font-bold text-center text-uppercase" style="width:70px;">Guadalajara</p>
+	    	<!-- <div class="flex flex-middle flex-center padding20" style="  padding:0 15px;">
+	    		<p class="color-black font-bold text-center text-uppercase">Guadalajara</p>
+	    	</div> -->
+
+	    	<div class="flex flex-middle flex-center padding20 back-green" style="width:100%;max-width:90px;  padding:0 10px;">
+	    		<p class="color-black font1em font-bold text-center">{{itemCart.block}}</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-	    		<p class="color-black font1em font-bold text-center" style="width:70px;">53543</p>
+	    	<div class="flex flex-middle flex-center padding20" style="width:100%;max-width:90px;  padding:0 10px;">
+	    		<p class="color-black font1em font-bold text-center">{{itemCart.available}}</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-	    		<p class="color-black font1em font-bold text-center" style="width:70px;">43</p>
-	    	</div>
-
-	    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-	    		<p class="color-black font1em font-bold text-center" style="width:70px;">143
-	    		<span class="mts2">m</span>
+	    	<div class="flex flex-middle flex-center padding20" style="width:100%;max-width:90px;  padding:0 10px;">
+	    		<p class="color-black font1em font-bold text-center">{{itemCart.total_m2}}
+		    		<!-- <span class="mts2">m</span> -->
 	    		</p>
 	    	</div>
 
-			<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-	    		<p class="color-black font1em font-bold text-center" style="width:90px;">30 x 30 mts.</p>
+			<div class="flex flex-middle flex-center padding20" style="width:100%;max-width:120px;  padding:0 10px;">
+	    		<p class="color-black font1em font-bold text-center">{{itemCart.measurements}} m</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
+	    	<div class="flex flex-middle flex-center padding20" style="width:100%; max-width:100px;  padding:0 10px;">
 	    		
-	    			<span class="font1-3em pointer ion-minus-circled" @click="restCant"></span>
-	    			<input class="color-black text-center margin0-10 my-input" style="border:2px solid gray; border-radius:4px; width:30px; padding:5px; background:#f1f1f1;" v-model="cant">
-	    			<span class="font1-3em pointer ion-plus-circled" @click="addCant"></span>
+	    			<span class="font1-3em pointer ion-minus-circled" @click="restCant(itemCart.id)"></span>
+	    			<input class="color-black text-center margin0-10 my-input" style="border:2px solid gray; border-radius:4px; width:30px; padding:5px; background:#f1f1f1;" v-model="itemCart.quantity">
+	    			<span class="font1-3em pointer ion-plus-circled" @click="addCant(itemCart.id)"></span>
 	    	</div>
 
 	    	
-	    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-	    		<p class="font1em font-bold text-center" style="width:70px;">34 <span class="mts2">m</span></p>
+	    	<div class="flex flex-middle flex-center padding20" style="width:100%;max-width:90px;  padding:0 10px;">
+	    		<p class="font1em font-bold text-center" v-if="itemCartM2">{{itemCartM2}} 
+	    		</p>
+
+	    		<p class="font1em font-bold text-center" v-else>N/D 
+	    		</p>
 	    	</div>
 
 
-	    	<div class="flex flex-middle flex-center width100 padding20" style="  padding:0 15px;">
-	    		<p class="color-yellow anchor font1em font-bold text-center" style="width:70px;">Ver foto</p>
+	    	<div class="flex flex-middle flex-center  padding20" style="width:100%; max-width:30px; padding:0 10px;">
+	    		<p class="color-yellow font1em font-bold text-center font1-5em">
+	    			<span class="ion-image"></span>
+	    		</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center width100" style="  padding:0 15px;">
-	    		<p class="color-yellow font1em font-bold text-center text-uppercase" style="width:30px;"><span class="ion-trash-a font1-5em"></span></p>
+	    	<div class="flex flex-middle flex-center" style="width:100%; max-width:30px; padding:0 10px;">
+	    		<p class="color-yellow font1em font-bold text-center text-uppercase" style="width:30px;" ><span @click="deleteItem(itemCart.id)" class="ion-trash-a font1-5em pointer"></span></p>
 	    	</div>
 
 	    </article>

@@ -1,10 +1,8 @@
 <script>
-
 	export default{
 		data(){
 			return {
         contact: 'whatsapp'
-
 			}
 		},
     watch:{
@@ -15,6 +13,12 @@
     methods:{
       changeContact(value){
         this.contact = value
+      },
+      closeModal(){
+        this.$parent.$emit('closeModal', {reload: false})
+      },
+      confirm(){
+        this.$parent.$emit('confirmedDelete')
       }
       
     }
@@ -98,11 +102,33 @@
           <article class="modal-body margin-bottom0 relative ">
 
             <section class="back-white padding10">
-                <div class="margin-bottom20">
-                  <p class="ion-checkmark color-green text-center" style="font-size:4em;"></p>
-                </div>
-                    
-                <h2 class="color-black text-uppercase text-center">Solucitud Enviada</h2>
+               <!--  <article class="flex flex-center">
+                  <div class="margin-bottom20 rounded flex flex-center flex-middle color-red" style="width:70px;height:70px; border:4px solid;">
+                      <p class="ion-alert text-center" style="font-size:3.3em;"></p>
+                    </div>
+                </article> -->
+
+                <div class="padding10"></div>
+                
+
+                <article class="margin-bottom20">
+                  <h2 class="color-black text-center text-uppercase font1-5em">¿Está seguro de eliminar este elemento de carrito?</h2>
+                </article>
+                <div class="padding10"></div>
+                
+                <article class="flex flex-middle flex-center margin-bottom20">
+                    <button class="my-btn back-yellow color-black" style="border:2px solid white; box-shadow:0 0 20px gray; width:200px;" @click="confirm">
+                    <h3 class="font1-3em color-black text-uppercase">Eliminar</h3>
+                  </button>
+                </article>
+
+                <article class="flex flex-middle flex-center">
+                    <p class="font1-3em anchor text-center font-bold text-uppercase" @click="closeModal">Cancelar</p>
+                </article>
+
+                <div class="padding10"></div>
+
+                
              
             </section>
 
