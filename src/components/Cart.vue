@@ -173,7 +173,7 @@
 </script>
 
 <template class="padding0">
-	<section class="padding0 back-white">
+	<section class="padding0 back-white height100vh">
 		<Spiner v-if="spin"></Spiner>
 		<ModalSure v-if="confirmSend"></ModalSure>
 		<ModalConfirmDelete v-if="confirmDelete"></ModalConfirmDelete>
