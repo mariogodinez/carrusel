@@ -41,7 +41,8 @@
 			'name': self.searchText,
 			'city': self.city,
 			'color': self.color,
-			'price': self.price
+			'price': self.price,
+			'type' : self.type
 		}
 		this.spin = true
       	axios.post(apiUrl + '/api/filter_products', obj)
@@ -130,7 +131,19 @@
 				<div class="relative my-select" style="width:160px; background:#212224; border:2px solid #787878;">
 					<select style="color:#787878;" v-model="color">
 						<option value="">Color</option>
-						<option value="gris">gris ox.for de lores.</option>
+						<option value="Crema">Crema</option>
+						<option value="Gris">Gris</option>
+						<option value="Blanco">Blanco</option>
+						<option value="Café">Café</option>
+						<option value="Amarillo">Amarillo</option>
+						<option value="Verde">Verde</option>
+						<option value="Morado">Morado</option>
+						<option value="Azul">Azul</option>
+						<option value="Negro">Negro</option>
+						<option value="Dorado">Dorado</option>
+						<option value="Rosa">Rosa</option>
+						<option value="Rojo">Rojo</option>
+						<option value="Naranja">Naranja</option>
 					</select>
 					<span class="my-select-icon ion-arrow-down-b" style="color:#787878;"></span>
 				</div>
