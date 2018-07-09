@@ -386,12 +386,12 @@
               
             </section>
             <div class="flex flex-center" style="margin-top:5vh;">
-              <figure class="pointer" @click="seeFullImg(false)" v-if="productToImage &&productToImage.image_url">
-                <img :src="productToImage.image_url" class="">
+              <figure class="pointer" @click="seeFullImg(false)" v-if="productToImage &&productToImage.image_url" style="width:80%;">
+                <img :src="productToImage.image_url" class="width100">
               </figure>
 
-              <figure class="" v-else>
-                <img src="./dist/img/no-image.png" class="">
+              <figure class="" v-else style="width:80%;">
+                <img src="./dist/img/no-image.png" class="width100">
               </figure>
             </div>
           </div>
