@@ -112,7 +112,7 @@
                 
 
                 <article class="margin-bottom20">
-                  <h2 class="color-black text-center text-uppercase font1-5em">¿Está seguro de eliminar este elemento de carrito?</h2>
+                  <h2 class="color-black text-center text-uppercase font1-5em">¿Está seguro de eliminar este producto de carrito?</h2>
                 </article>
                 <div class="padding10"></div>
                 

@@ -10,7 +10,7 @@
     "serve": "http-server -o -c 1 -a localhost",
     "dev": "npm-run-all --parallel watchify serve & npm run styles",
     "clean": "rimraf ../laravel/public/dist/ && rimraf ../laravel/resources/views/welcome.blade.php",
-    "copy": "ncp dist/ ../laravel/public/dist/ && ncp index.html ../laravel/resources/views/welcome.blade.php",
+    "copy": "ncp dist/ ../carousel/public/dist/ && ncp index.html ../carousel/resources/views/welcome.blade.php",
     "build": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o dist/build.css ] -e src/main.js | uglifyjs -c warnings=false -m > dist/build.js && npm run clean && npm run copy",
     "build-dev": "npm run build && npm run dev"
   },

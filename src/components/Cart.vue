@@ -24,6 +24,7 @@
 		},
 		data(){
 			return {
+				successMessage: '',
 				confirmDelete: false,
 				deleteItemId: null,
 				confirmSend: false,
@@ -87,6 +88,7 @@
 							self.spin = false
 							if(res.status == 200){
 								self.success = true
+								self.successMessage = 'Se ha eliminado el producto del carrito.'
 								setTimeout(function(){
 									self.success = false
 								},2100)
@@ -135,9 +137,12 @@
 					console.log(res)
 					self.spin = false
 					self.success = true
+
+					self.successMessage = 'Se ha enviado la cotización correctamente.'
 					self.$store.dispatch('addNotifications', 0)
 					setTimeout(function(){
 						self.success = false
+						self.$router.push('/carrusel')
 					}, 3000)
 				})
 				.catch(err =>{
@@ -174,7 +179,7 @@
 		<ModalConfirmDelete v-if="confirmDelete"></ModalConfirmDelete>
 
 		<ModalConfirm v-if="sent"></ModalConfirm>
-		<ModalSuccess v-if="success" msg="Se ha enviado la cotización correctamente."></ModalSuccess>
+		<ModalSuccess v-if="success" :msg="successMessage"></ModalSuccess>
 		<ModalError v-if="error"></ModalError>
 
 
