@@ -91,7 +91,11 @@
 
               let data = res.data
 
+
+
               data.forEach(item => item.selected = false)
+
+              data.forEach(item => item.searched = self.selectFilterText)
 
               self.products = data
             })
@@ -191,6 +195,8 @@
       this.products = JSON.parse(localStorage.getItem('lastProductDetail'))
 
 
+      this.selectFilterText = this.products[0].searched
+
 
       self.type = localStorage.lastBlockSelected
 
@@ -259,9 +265,9 @@
       </div>
 
       <article class="flex flex-middle">
-         <h3 class="font1-3em font-normal margin-right10 text-center">Seleccionar  producto</h3>
+         <h3 class="font1-3em font-normal margin-right10 text-center">Seleccionar  producto:</h3>
              <div class=" flex flex-center">
-                <div class="my-select font1em back-black width100 color-white " style="width:290px;">
+                <div class="my-select font1em back-black width100 color-white " style="width:350px;">
                   <select v-model="selectFilterText" @change="selectFilter">
                     <option value="">Nombre del producto</option>
                     <option :value="i.name" v-for="i in productsOfImg">{{i.name}}</option>
