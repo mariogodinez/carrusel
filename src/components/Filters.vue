@@ -45,7 +45,7 @@
 			'type' : self.type
 		}
 		this.spin = true
-      	axios.post(apiUrl + '/apis/filter_products', obj)
+      	axios.post(apiUrl + '/api/filter_products', obj)
 	        .then(res =>{
 	            self.spin = false
 	            self.$parent.$emit('filtered', {datos: res.data, status: true})

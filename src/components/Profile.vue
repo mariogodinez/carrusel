@@ -60,10 +60,12 @@
 							console.log(res)
 							self.spin = false
 							self.success = true
+
 							localStorage.user = JSON.stringify(res.data.user)
 							self.$store.dispatch('setUser', res.data.user)
 
 							setTimeout(function(){
+								self.edit = false
 								self.success = false
 							},3000)
 						})
