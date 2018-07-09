@@ -386,7 +386,7 @@
               
             </section>
             <div class="flex flex-center" style="margin-top:5vh;">
-              <figure class="pointer" @click="seeFullImg(false)" v-if="productToImage.image_url">
+              <figure class="pointer" @click="seeFullImg(false)" v-if="productToImage &&productToImage.image_url">
                 <img :src="productToImage.image_url" class="">
               </figure>
 
