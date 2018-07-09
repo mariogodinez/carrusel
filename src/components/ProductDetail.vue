@@ -386,8 +386,12 @@
               
             </section>
             <div class="flex flex-center" style="margin-top:5vh;">
-              <figure class="pointer" @click="seeFullImg(false)">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzpXIIGLWe2RiGiY3FZ_gfVjzhYGWEbmoIGyxfLz0N5Fv-MiJOw" class="">
+              <figure class="pointer" @click="seeFullImg(false)" v-if="productToImage.image_url">
+                <img :src="productToImage.image_url" class="">
+              </figure>
+
+              <figure class="" v-else>
+                <img src="./dist/img/no-image.png" class="">
               </figure>
             </div>
           </div>

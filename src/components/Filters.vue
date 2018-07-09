@@ -45,7 +45,7 @@
 			'type' : self.type
 		}
 		this.spin = true
-      	axios.post(apiUrl + '/api/filter_products', obj)
+      	axios.post(apiUrl + '/apis/filter_products', obj)
 	        .then(res =>{
 	            self.spin = false
 	            self.$parent.$emit('filtered', {datos: res.data, status: true})
@@ -53,7 +53,7 @@
 	        .catch(err =>{
 	          self.spin = false
 	          self.error = true
-	          self.errorMessage = err.response.data.error
+	          self.errorMessage = 'No se encontraron resultados. Por favor intenta de nuevo.'
 
 	          setTimeout(function(){
 					self.error = false
@@ -129,7 +129,7 @@
 			<div class=" flex flex-middle margin-right20">
 				<!-- <h3 class="font-normal color-white margin-right5">Color:</h3> -->
 				<div class="relative my-select" style="width:160px; background:#212224; border:2px solid #787878;">
-					<select style="color:#787878;" v-model="color">
+					<select style="color:#787878;" v-model="color" :class="{'color-white' : color != ''}">
 						<option value="">Color</option>
 						<option value="Crema">Crema</option>
 						<option value="Gris">Gris</option>
