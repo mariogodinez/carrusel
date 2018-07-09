@@ -12,6 +12,7 @@
     name: 'DetalleProducto',
     data() {
       return {
+        type:null,
         errorMsg: '',
         error: false,
         productsOfImg: null,
@@ -188,6 +189,19 @@
     created(){
       let self = this
       this.products = JSON.parse(localStorage.getItem('lastProductDetail'))
+
+
+
+      self.type = localStorage.lastBlockSelected
+
+      axios.post(apiUrl + '/api/descriptions_by_type', {'type' : localStorage.getItem('lastBlockSelected')})
+        .then(res=>{
+          self.productsOfImg = res.data.descriptions
+
+        })
+        .catch(err=>{
+          console.log(err.response)
+        })
     }
   }
 </script>
@@ -239,14 +253,29 @@
 
 
 
-    <section class="padding0-20 back-white" style="padding-top:20px;">
+    <section class="padding0-20 back-white flex flex-between" style="padding-top:20px;">
       <div class="color-yellow back-yellow hvr-buzz-out pointer square30 rounded flex flex-center flex-middle"  @click="goBack">
         <span class="ion-arrow-left-b color-white font1-5em relative" style="left:-1px;" ></span>
       </div>
+
+      <article class="flex flex-middle">
+         <h3 class="font1-3em font-normal margin-right10 text-center">Seleccionar  producto</h3>
+             <div class=" flex flex-center">
+                <div class="my-select font1em back-black width100 color-white " style="width:290px;">
+                  <select v-model="selectFilterText" @change="selectFilter">
+                    <option value="">Nombre del producto</option>
+                    <option :value="i.name" v-for="i in productsOfImg">{{i.name}}</option>
+                  </select>
+                  <div class="my-select-icon color-black">
+                    <span class="ion-arrow-down-b" style="color:white;"></span>
+                  </div>
+               </div>
+            </div>
+      </article>
     </section>
 
     <section class="padding20-10 flex relative" style="padding-top:0;" v-if="products != null">
-        <article class=" padding10" style="width:48%; margin-right:2%">
+        <article class=" padding10" style="width:70%; margin-right:2%">
           <section class=" flex flex-between margin-bottom10 padding20-10" style="padding-bottom:10px;">
             <div>
               <h3 class="font1em font-normal">Nombre</h3>
@@ -356,9 +385,9 @@
               </article>
               
             </section>
-            <div class="flex flex-right" style="margin-top:5vh;">
+            <div class="flex flex-center" style="margin-top:5vh;">
               <figure class="pointer" @click="seeFullImg(false)">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzpXIIGLWe2RiGiY3FZ_gfVjzhYGWEbmoIGyxfLz0N5Fv-MiJOw" class="with100">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzpXIIGLWe2RiGiY3FZ_gfVjzhYGWEbmoIGyxfLz0N5Fv-MiJOw" class="">
               </figure>
             </div>
           </div>

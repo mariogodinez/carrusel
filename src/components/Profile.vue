@@ -1,18 +1,26 @@
 <script>
 	import Spiner from './Spinner.vue'
+	import ModalSuccess from './ModalSuccess.vue'
+	import ModalError from './ModalError.vue'
+
 
 	export default {
 		components:{
 			Spiner,
+			ModalSuccess,
+			ModalError
 		},
 		data(){
 			return {
 
-				spiner: false,
+				spin: false,
 				edit: false,
-				errorMessage: 'Las credenciales no coinciden.',
+				errorMessage: 'Ha ocurrido un error al guardar el usuario. Intenta nuevamente.',
 				error: false,
-				user: null
+				user: null,
+				success: false,
+				password:'',
+				repeatPassword:''
 
 			}
 		},
@@ -27,6 +35,53 @@
 		methods: {
 			changeEdit(value){
 				this.edit = value
+			},
+			editUser(){
+				let self = this
+
+
+				if(this.password !== this.repeatPassword){
+					this.error = true
+					this.errorMessage = 'Las contraseñas no coinciden. Por favor verifícalas.'
+					setTimeout(function(){
+								self.error = false
+							},3000)
+					return false
+				}
+
+				let obj = this.user
+
+				obj.password = this.password
+
+				this.spin = true
+				setTimeout(function(){
+					axios.post(apiUrl + '/api/update_client/' + self.user.id, obj)
+						.then(res=>{
+							console.log(res)
+							self.spin = false
+							self.success = true
+							localStorage.user = JSON.stringify(res.data.user)
+							self.$store.dispatch('setUser', res.data.user)
+
+							setTimeout(function(){
+								self.success = false
+							},3000)
+						})
+						.catch(err=>{
+							console.log(err.response)
+							self.spin = false
+							self.error = true
+							console.log(err.response.data.status)
+							if(err.response.data.code == 422){
+								self.errorMessage = err.response.data.error
+								
+							}
+							setTimeout(function(){
+								self.error = false
+							},3000)
+						})
+				}, 500)
+				
 			}
 		},
 		created(){
@@ -37,7 +92,11 @@
 
 <template class="padding0">
 	<section class="padding0 back-white height100vh">
-		<Spiner v-if="spiner"></Spiner>
+		<Spiner v-if="spin"></Spiner>
+
+		<ModalSuccess v-if="success" msg="Se ha guardado el usuario de forma correcta"></ModalSuccess>
+
+		<ModalError v-if="error" :msg="errorMessage"></ModalError>
 		<article class="back-darkblack flex flex-between flex-middle">
 			<h2 class="color-white padding-left20 font-normal text-uppercase font1-3em">Perfil</h2>
 			<button class="my-btn back-yellow flex flex-middle" v-if="!edit" @click="changeEdit(true)" style="border-radius:0; padding:1em;">
@@ -92,13 +151,13 @@
 					<div class="padding15 flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Contraseña:</span></h3>
 						<div>
-							<input style="background:#fff;" type="text" class="my-input" name="" v-model="password">
+							<input style="background:#fff;" type="password" class="my-input" name="" v-model="password">
 						</div>
 					</div>
 					<div class="padding15 back-lightgray flex flex-middle">
 						<h3 class="font1 font-normal margin-left20" style="width:200px;"> <span class="font1em">Confirmar Contraseña:</span></h3>
 						<div>
-							<input style="background:#fff;" type="text" class="my-input" v-model="repeatPassword">
+							<input style="background:#fff;" type="password" class="my-input" v-model="repeatPassword">
 						</div>
 					</div>
 
@@ -112,7 +171,7 @@
 					<div class="padding15 flex flex-middle">
 					<div style="width:200px;"></div>
 						<div class="margin-left20">
-							<button class="my-btn text-uppercase back-yellow font-bold">Guardar</button>
+							<button @click="editUser" class="my-btn text-uppercase back-yellow font-bold">Guardar</button>
 						</div>
 						<h3 class="font1 font-normal margin-left20 text-uppercase anchor" @click="changeEdit(false)"> <span class="font1em">Cancelar</span></h3>
 						

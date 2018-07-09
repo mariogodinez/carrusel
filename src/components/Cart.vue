@@ -181,7 +181,7 @@
 
 
 		<article class="back-darkblack flex padding15 flex-middle">
-			<div class="square30 pointer rounded flex flex-middle flex-center" @click="goBack">
+			<div class="square30 back-yellow pointer rounded flex flex-middle flex-center" @click="goBack">
 				<span class="ion-arrow-left-b color-black font1-5em relative" style="left:-1px;"></span>
 			</div>
 			<h2 class="color-white padding-left10 font-normal text-uppercase font1-3em">Carrito</h2>

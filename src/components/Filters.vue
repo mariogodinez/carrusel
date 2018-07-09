@@ -1,6 +1,8 @@
 
 <script>
   import Spinner from './Spinner.vue'
+  import ModalError from './ModalError.vue'
+
 
   export default {
     data() {
@@ -11,12 +13,15 @@
         price:'',
         color:'',
         type: '',
-        spin: false
+        spin: false,
+        error: false,
+        errorMessage: '',
 
       }
     },
     components:{
-    	Spinner
+    	Spinner,
+    	ModalError
     },
     computed: {
       
@@ -40,16 +45,19 @@
 		}
 		this.spin = true
       	axios.post(apiUrl + '/api/filter_products', obj)
-        .then(res =>{
-          console.log(res)
-          
-            self.spin = false
-            self.$parent.$emit('filtered', {datos: res.data, status: true})
-        })
-        .catch(err =>{
-          console.log(err.response)
-          self.spin = false
-        })
+	        .then(res =>{
+	            self.spin = false
+	            self.$parent.$emit('filtered', {datos: res.data, status: true})
+	        })
+	        .catch(err =>{
+	          self.spin = false
+	          self.error = true
+	          self.errorMessage = err.response.data.error
+
+	          setTimeout(function(){
+					self.error = false
+				},3000)
+	        })
       }
     },
     mounted() {
@@ -61,6 +69,8 @@
 <template>
 	<section style="background: #000;">
 		<Spinner v-if="spin"></Spinner>
+		<ModalError v-if="error" :msg="errorMessage"></ModalError>
+
 		<article class="relative flex flex-middle flex-between">
 		<transition appear name="custom-classes-transition" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
 			
@@ -86,7 +96,30 @@
 				<div class="relative my-select" style="width:140px; background:#212224; border:2px solid #787878;">
 					<select style="color:#787878;" v-model="city" :class="{'color-white' : city != ''}">
 						<option value="" style="color:red !important; font-size:4em !important;">Ciudad</option>
-						<option value="Guadalajara" style="color:red !important; font-size:4em !important;">Guadalajara</option>
+						<option value="Guadalajara" style="font-size:4em !important;">Guadalajara</option>
+
+						<option value="Cuidad de Mexico" style="font-size:4em !important;">Cuidad de México</option>
+
+						<option value="Monterrey" style="font-size:4em !important;">Monterrey</option>
+
+						<option value="Cancun" style="font-size:4em !important;">Cancún</option>
+
+						<option value="Queretaro" style="font-size:4em !important;">Querétaro</option>
+
+						<option value="Leon" style="font-size:4em !important;">León</option>
+
+
+						<option value="Puebla" style="font-size:4em !important;">Puebla</option>
+
+						<option value="Hermosillo" style="font-size:4em !important;">Hermosillo</option>
+
+						<option value="Culiacan" style="font-size:4em !important;">Culiacán</option>
+
+						<option value="Morelia" style="font-size:4em !important;">Morelia</option>
+
+						<option value="Merida" style="font-size:4em !important;">Mérida</option>
+
+						<option value="Aguascalientes" style="font-size:4em !important;">Aguascalientes</option>
 					</select>
 					<span class="my-select-icon ion-arrow-down-b" style="color:#787878;"></span>
 				</div>
@@ -121,9 +154,20 @@
 			<div class=" flex flex-middle margin-right20">
 				<!-- <h3 class="font-normal color-white margin-right5">Tipo:</h3> -->
 				<div class="relative my-select" style="width:140px; background:#212224; border:2px solid #787878;">
-					<select style="color:#787878;" v-model="type">
+					<select style="color:#787878;" v-model="type" :class="{'color-white' : type != ''}">
 						<option value="">Tipo</option>
-						<option value="342">3423</option>
+						<option value="Marmoles">Mármoles</option>
+						<option value="Granito">Granito</option>
+						<option value="Cuarcitas">Cuarcitas</option>
+						<option value="Tenerife Quartz">Tenerife Quartz</option>
+						<option value="Antolini">Antolini</option>
+						<option value="Travertinos">Travertinos</option>
+						<option value="Calizas">Calizas</option>
+						<option value="Arenicas">Arenicas</option>
+						<option value="Onix">Onix</option>
+						<option value="Pizarras">Pizarras</option>
+						<option value="Fachaletas">Fachaletas</option>
+
 					</select>
 					<span class="my-select-icon ion-arrow-down-b" style="color:#787878;"></span>
 				</div>
