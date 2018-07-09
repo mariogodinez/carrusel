@@ -181,7 +181,7 @@
 
 
 		<article class="back-darkblack flex padding15 flex-middle">
-			<div class="square30 pointer rounded back-yellow flex flex-middle flex-center" @click="goBack">
+			<div class="square30 pointer rounded flex flex-middle flex-center" @click="goBack">
 				<span class="ion-arrow-left-b color-black font1-5em relative" style="left:-1px;"></span>
 			</div>
 			<h2 class="color-white padding-left10 font-normal text-uppercase font1-3em">Carrito</h2>
@@ -202,7 +202,7 @@
 		<article class="padding5">
 			<section>
 		    	<article class="flex">
-			    	<div class=" padding20-10 back-red" style="width:100%;min-width:230px;">
+			    	<div class=" padding20-10" style="width:100%;min-width:230px;">
 			    		<p class="color-gray font1em font-bold text-uppercase" style="font-size:1em;">Nombre</p>
 			    	</div>
 
@@ -210,15 +210,15 @@
 			    		<p class="color-gray font-bold text-center text-uppercase" style="width:70px;">CD</p>
 			    	</div> -->
 
-			    	<div class="flex flex-middle back-yellow flex-center back-red padding20" style="  padding:0 10px; width:100%; max-width:90px;">
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px; width:100%; max-width:90px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;">Bloque</p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center back-green padding20" style="  padding:0 10px; width:90px;">
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px; width:90px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;">Cant. Disp.</p>
 			    	</div>
 
-			    	<div class="flex flex-middle back-yellow flex-center  padding20" style="  padding:0 10px;width:100%;max-width:90px;">
+			    	<div class="flex flex-middle flex-center  padding20" style="  padding:0 10px;width:100%;max-width:90px;">
 			    		<p class="color-gray text-uppercase font1em font-bold text-center" style="width:70px;">total <span class="mts2">m</span></p>
 			    	</div>
 

@@ -86,7 +86,7 @@
 				<div class="relative my-select" style="width:140px; background:#212224; border:2px solid #787878;">
 					<select style="color:#787878;" v-model="city" :class="{'color-white' : city != ''}">
 						<option value="" style="color:red !important; font-size:4em !important;">Ciudad</option>
-						<option value="GDL" style="color:red !important; font-size:4em !important;">Guadalajara</option>
+						<option value="Guadalajara" style="color:red !important; font-size:4em !important;">Guadalajara</option>
 					</select>
 					<span class="my-select-icon ion-arrow-down-b" style="color:#787878;"></span>
 				</div>

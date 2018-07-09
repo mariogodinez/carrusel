@@ -45,7 +45,7 @@
 	<div>
 		<!-- <Spinner></Spinner> -->
 		<article class="flex add">
-	    	<div class=" padding20-10 back-yellow" style="width:100%;min-width:230px;">
+	    	<div class=" padding20-10 " style="width:100%;min-width:230px;">
 	    		<p class="color-black font1em font-bold text-uppercase" style="font-size:1em;">{{itemCart.name}}</p>
 	    	</div>
 
@@ -53,7 +53,7 @@
 	    		<p class="color-black font-bold text-center text-uppercase">Guadalajara</p>
 	    	</div> -->
 
-	    	<div class="flex flex-middle flex-center padding20 back-green" style="width:100%;max-width:90px;  padding:0 10px;">
+	    	<div class="flex flex-middle flex-center padding20 " style="width:100%;max-width:90px;  padding:0 10px;">
 	    		<p class="color-black font1em font-bold text-center">{{itemCart.block}}</p>
 	    	</div>
 
