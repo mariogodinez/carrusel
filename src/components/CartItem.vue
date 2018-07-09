@@ -16,7 +16,10 @@
 			},
 			addCant(id){
 				// this.itemCart.quantity ++
-				this.$store.dispatch('addCount', id)
+				if( this.itemCart.quantity < this.itemCart.available){
+					this.$store.dispatch('addCount', id)
+				}
+				
 			},
 			restCant(id){
 				// if(this.itemCart.quantity == 0) {
