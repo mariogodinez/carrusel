@@ -23,7 +23,7 @@
 				if( this.itemCart.quantity < this.itemCart.available){
 					this.$store.dispatch('addCount', id)
 				} else {
-					console.log(id)
+					
 					this.$store.dispatch('showCartWarn',{id})
 
 					setTimeout(function(){

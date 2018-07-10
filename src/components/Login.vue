@@ -12,8 +12,8 @@
 			return {
 				spiner: false,
 				userInfo: {
-					email: 'chaos@gmail.com',
-					password: '1234'
+					email: '',
+					password: ''
 				},
 				errorMessage: 'Las credenciales no coinciden.',
 				error: false,

@@ -6,6 +6,8 @@
 	import ModalConfirmDelete from './ModalConfirmDelete.vue'
 	import ModalSuccess from './ModalSuccess.vue'
 	import ModalError from './ModalError.vue'
+	import NoCartData from './NoCartData.vue'
+
 
 
 
@@ -19,7 +21,8 @@
 			ModalConfirm,
 			ModalConfirmDelete,
 			ModalSuccess,
-			ModalError
+			ModalError,
+			NoCartData
 
 		},
 		data(){
@@ -210,8 +213,8 @@
 
 
 		<article class="padding5">
-			<section>
-		    	<article class="flex">
+			<section v-if="cartItems.length > 0">
+		    	<article class="flex" >
 			    	<div class=" padding20-10" style="width:100%;min-width:230px;">
 			    		<p class="color-gray font1em font-bold text-uppercase" style="font-size:1em;">Nombre</p>
 			    	</div>
@@ -254,8 +257,13 @@
 			    </article>
 		    </section>
 
-		    <section v-for="i in cartItems">
-		    	<CartItem :itemCart="i"></CartItem>
+		    <section v-for="i in cartItems" v-if="cartItems.length > 0" class="item-back">
+		    	<CartItem :itemCart="i" ></CartItem>
+		    </section>
+
+
+		    <section class="margin20 relative" v-if="cartItems.length == 0" style="top:40px;">
+		    	<NoCartData></NoCartData>
 		    </section>
 
 

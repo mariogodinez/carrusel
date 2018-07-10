@@ -104,7 +104,13 @@ let VueApp = new Vue({ // eslint-disable-line no-new
       .then(res =>{
         this.$store.dispatch('addToCart', res.data.shopping_cart)
 
-        this.$store.dispatch('addNotifications', res.data.shopping_cart.length)
+        let numbers = res.data.shopping_cart.map(item => Number(item.quantity))
+
+        let result = numbers.reduce(function(valorAnterior, valorActual, indice, vector){
+          return valorAnterior + valorActual;
+        });
+
+        this.$store.dispatch('addNotifications', result)
       })
       .catch(err =>{
         console.log(err.response)
