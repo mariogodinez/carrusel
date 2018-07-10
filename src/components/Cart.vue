@@ -75,6 +75,8 @@
 				self.confirmDelete = true
 			})
 
+
+
 			this.$on('confirmedDelete', function(obj){
 				self.confirmDelete = false
 
@@ -162,7 +164,10 @@
 		    axios.post(apiUrl + '/api/shopping_cart', {user_id: self.userInfo.id})
 		      .then(res =>{
 		      	self.spin = false
-		        this.$store.dispatch('addToCart', res.data.shopping_cart)
+		      	let data = res.data.shopping_cart
+		      	data.forEach(item => item.warning = false)
+		      	console.log(data)
+		        self.$store.dispatch('addToCart', data)
 		      })
 		      .catch(err =>{
 		      	self.spin = false

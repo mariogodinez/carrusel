@@ -1,5 +1,7 @@
 <script type="text/javascript">
 	import Spinner from './Spinner.vue'
+	import WarnTag from './WarnTag.vue'
+
 	export default{
 		data(){
 			return {
@@ -7,7 +9,8 @@
 			}
 		},
 		components:{
-			Spinner
+			Spinner,
+			WarnTag
 		},
 		props:['itemCart'],
 		methods:{
@@ -15,9 +18,17 @@
 				this.$parent.$emit('deleteItem', { id })
 			},
 			addCant(id){
-				// this.itemCart.quantity ++
+				let self = this
+				
 				if( this.itemCart.quantity < this.itemCart.available){
 					this.$store.dispatch('addCount', id)
+				} else {
+					console.log(id)
+					this.$store.dispatch('showCartWarn',{id})
+
+					setTimeout(function(){
+						self.$store.dispatch('hideCartWarn',{id})
+					}, 3000)
 				}
 				
 			},
@@ -74,8 +85,12 @@
 	    		<p class="color-black font1em font-bold text-center">{{itemCart.measurements}} m</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center padding20" style="width:100%; max-width:100px;  padding:0 10px;">
+	    	<div class="flex flex-middle flex-center padding20 relative" style="width:100%; max-width:100px;  padding:0 10px;">
+
 	    		
+	    			<WarnTag msg="No se puede agregar más producto del disponible." class="absolute" v-if="itemCart.warning" style="top:-30px;left:-305px; width:400px; padding:5px;"></WarnTag>
+
+
 	    			<span class="font1-3em pointer ion-minus-circled" @click="restCant(itemCart.id)"></span>
 	    			<input class="color-black text-center margin0-10 my-input" style="border:2px solid gray; border-radius:4px; width:30px; padding:5px; background:#f1f1f1;" v-model="itemCart.quantity">
 	    			<span class="font1-3em pointer ion-plus-circled" @click="addCant(itemCart.id)"></span>

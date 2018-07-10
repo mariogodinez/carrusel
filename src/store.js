@@ -40,6 +40,25 @@ const mutations = {
 
 		})
 	},
+	SHOW_CART_WARN(state, id){
+		state.cart.forEach(function(item) { 
+
+		    if(item.id == id.id){
+		    	item.warning = true
+		    	
+		    }
+
+		})
+	},
+	HIDE_CART_WARN(state, id){
+		state.cart.forEach(function(item) { 
+		    if(item.id == id.id){
+		    	item.warning = false
+		    	
+		    }
+
+		})
+	},
 	REST_COUNT(state, id){
 		state.cart.forEach(function(item) { 
 		    if(item.id == id){
@@ -91,6 +110,12 @@ const actions = {
 	 },
 	 restCount({commit}, id){
 	 	commit('REST_COUNT', id)
+	 },
+	 showCartWarn({commit}, id){
+	 	commit('SHOW_CART_WARN', id)
+	 },
+	 hideCartWarn({commit}, id){
+	 	commit('HIDE_CART_WARN', id)
 	 }
 }
 
