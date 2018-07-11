@@ -58,34 +58,30 @@
 <template>
 	<div>
 		<!-- <Spinner></Spinner> -->
-		<article class="flex add">
-	    	<div class=" padding20-10 " style="width:100%;min-width:230px;">
+		<article class="grid-cart add">
+	    	<div class=" padding20-10 ">
 	    		<p class="color-black font1em font-bold text-uppercase" style="font-size:1em;">{{itemCart.name}}</p>
 	    	</div>
 
-	    	<!-- <div class="flex flex-middle flex-center padding20" style="  padding:0 15px;">
-	    		<p class="color-black font-bold text-center text-uppercase">Guadalajara</p>
-	    	</div> -->
-
-	    	<div class="flex flex-middle flex-center padding20 " style="width:100%;max-width:90px;  padding:0 10px;">
+	    	<div class="flex flex-middle flex-center padding20 " style=" padding:0 10px;">
 	    		<p class="color-black font1em font-bold text-center">{{itemCart.block}}</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center padding20" style="width:100%;max-width:90px;  padding:0 10px;">
+	    	<div class="flex flex-middle flex-center padding20" style=" padding:0 10px;">
 	    		<p class="color-black font1em font-bold text-center">{{itemCart.available}}</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center padding20" style="width:100%;max-width:90px;  padding:0 10px;">
+	    	<div class="flex flex-middle flex-center padding20" style=" padding:0 10px;">
 	    		<p class="color-black font1em font-bold text-center">{{itemCart.total_m2}}
 		    		<!-- <span class="mts2">m</span> -->
 	    		</p>
 	    	</div>
 
-			<div class="flex flex-middle flex-center padding20" style="width:100%;max-width:120px;  padding:0 10px;">
+			<div class="flex flex-middle flex-center padding20" style=" padding:0 10px;">
 	    		<p class="color-black font1em font-bold text-center">{{itemCart.measurements}} m</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center padding20 relative" style="width:100%; max-width:100px;  padding:0 10px;">
+	    	<div class="flex flex-middle flex-center padding20 relative" style=" padding:0 10px;">
 
 	    		
 	    			<WarnTag msg="No se puede agregar más producto del disponible." class="absolute" v-if="itemCart.warning" style="top:-30px;left:-305px; width:400px; padding:5px;"></WarnTag>
@@ -97,7 +93,7 @@
 	    	</div>
 
 	    	
-	    	<div class="flex flex-middle flex-center padding20" style="width:100%;max-width:90px;  padding:0 10px;">
+	    	<div class="flex flex-middle flex-center padding20" style="padding:0 10px;">
 	    		<p class="font1em font-bold text-center" v-if="itemCartM2">{{itemCartM2}} 
 	    		</p>
 
@@ -106,13 +102,13 @@
 	    	</div>
 
 
-	    	<div class="flex flex-middle flex-center  padding20" style="width:100%; max-width:30px; padding:0 10px;">
+	    	<div class="flex flex-middle flex-center  padding20" style=" padding:0 10px;">
 	    		<p class="color-yellow font1em font-bold text-center font1-5em">
 	    			<span class="ion-image"></span>
 	    		</p>
 	    	</div>
 
-	    	<div class="flex flex-middle flex-center" style="width:100%; max-width:30px; padding:0 10px;">
+	    	<div class="flex flex-middle flex-center" style=" padding:0 10px;">
 	    		<p class="color-yellow font1em font-bold text-center text-uppercase" style="width:30px;" ><span @click="deleteItem(itemCart.id)" class="ion-trash-a font1-5em pointer"></span></p>
 	    	</div>
 

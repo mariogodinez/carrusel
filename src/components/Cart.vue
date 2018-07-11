@@ -180,6 +180,14 @@
 	}
 </script>
 
+<style type="text/css">
+	.grid-cart{
+		display:grid;
+		grid-template-columns:28% 10% 10% 10% 12% 10% 12% 3% 5%;
+	}
+
+</style>
+
 <template class="padding0">
 	<section class="padding0 back-white height100vh">
 		<Spiner v-if="spin"></Spiner>
@@ -214,44 +222,41 @@
 
 		<article class="padding5">
 			<section v-if="cartItems.length > 0">
-		    	<article class="flex" >
-			    	<div class=" padding20-10" style="width:100%;min-width:230px;">
+		    	<article class="grid-cart" >
+			    	<div class=" padding20-10" >
 			    		<p class="color-gray font1em font-bold text-uppercase" style="font-size:1em;">Nombre</p>
 			    	</div>
 
-			    	<!-- <div class="flex flex-middle flex-center padding20" style="  padding:0 15px;">
-			    		<p class="color-gray font-bold text-center text-uppercase" style="width:70px;">CD</p>
-			    	</div> -->
 
-			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px; width:100%; max-width:90px;">
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;">Bloque</p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px; width:90px;">
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="width:70px;">Cant. Disp.</p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center  padding20" style="  padding:0 10px;width:100%;max-width:90px;">
+			    	<div class="flex flex-middle flex-center  padding20" style="  padding:0 10px;">
 			    		<p class="color-gray text-uppercase font1em font-bold text-center" style="width:70px;">total <span class="mts2">m</span></p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center  padding20" style="  padding:0 10px;width:100%;max-width:120px;">
+			    	<div class="flex flex-middle flex-center  padding20" style="  padding:0 10px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="">Medidas</p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;width:100%; max-width:100px;">
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style="">Cant.  </p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;width:100%;max-width:90px;">
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style=""><span class="mts2">m</span></p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px; width:100%; max-width:30px;">
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style=""></p>
 			    	</div>
 
-			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;width:100%;max-width:30px;">
+			    	<div class="flex flex-middle flex-center padding20" style="  padding:0 10px;">
 			    		<p class="color-gray font1em font-bold text-center text-uppercase" style=""></p>
 			    	</div>
 			    </article>
